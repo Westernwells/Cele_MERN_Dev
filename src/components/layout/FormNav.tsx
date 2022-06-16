@@ -69,7 +69,7 @@ const NavItem = ({
         "w-[154px] border-b-2 pb-3 flex gap-5 relative items-center text-[#050505]"
       )}
     >
-      <div className={classNames(match ? "block  active-bg" : "hidden")}></div>
+      {/* <div className={classNames(match ? "block  active-bg" : "hidden")}></div> */}
       <p className="z-10 font-normal text-[30px] leading-[35px]">{sNo + 1}.</p>
       <p
         className={classNames(
