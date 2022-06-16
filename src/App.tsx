@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Keyword from "./pages/Keyword";
+import Occasion from "./pages/Occasion";
+import Price from "./pages/Price";
+import Who from "./pages/Who";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Who />}></Route>
+        <Route path="/who" element={<Who />}></Route>
+        <Route path="/occasion" element={<Occasion />}></Route>
+        <Route path="/keyword" element={<Keyword />}></Route>
+        <Route path="/price" element={<Price rtl={false} />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
