@@ -34,14 +34,14 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
         {/* main area */}
         <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center">
           {/* Content area */}
-          <div className="px-[52px] w-full">
+          <div className="px-4 md:px-[52px] w-full">
             {/* row 1 */}
-            <div className="grid grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="col-start-1 col-end-6 w-full">
+            <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 ">
+              <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   What is the ideal price range?
                 </p>
-                <div className="w-full mt-8  relative h-[50px]">
+                <div className="w-full mt-8  relative h-[50px] px-6 md:px-0">
                   <Range
                     values={values}
                     step={STEP}
@@ -118,8 +118,9 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
             </div>
           </div>
           {/* next area */}
+        </div>
           <div
-            className=" flex justify-end absolute bottom-0 w-full mb-[92px] "
+            className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
             onClick={() => {
               window.alert(
                 `$ ${values[0].toFixed(1)} - $ ${values[1].toFixed(1)}`
@@ -134,7 +135,6 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
               </p>
             </div>
           </div>
-        </div>
       </LayoutForm>
     </div>
   );

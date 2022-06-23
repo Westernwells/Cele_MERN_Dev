@@ -41,8 +41,8 @@ const Occasion: React.FC = () => {
           {/* Content area */}
           <div className="px-[52px] w-full">
             {/* row 1 */}
-            <div className="grid grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="col-start-1 col-end-6 w-full">
+            <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
+              <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   What is the special occasion?
                 </p>
@@ -67,9 +67,9 @@ const Occasion: React.FC = () => {
               <div className="col-start-6 col-end-11"></div>
             </div>
             {/* row 2 */}
-            <div className="grid grid-cols-12 w-full mb-10">
-              <div className="col-start-1 col-end-6 w-full">
-                <div className="flex gap-9">
+            <div className="md:grid md:grid-cols-12 w-full mb-10">
+              <div className="md:col-start-1 md:col-end-6 w-full">
+                <div className="sm:grid grid-cols-2 md:flex md:flex-wrap md:gap-9">
                   {Occasions.map((text, index) => (
                     <TagBox
                       key={index.toString()}
@@ -79,12 +79,13 @@ const Occasion: React.FC = () => {
                   ))}
                 </div>
               </div>
-              <div className="col-start-6 col-end-11"></div>
+              {/* <div className="col-start-6 col-end-11"></div> */}
             </div>
           </div>
+        </div>
           {/* next area */}
           <div
-            className=" flex justify-end absolute bottom-0 w-full mb-[92px] "
+            className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
             onClick={() => {
               window.alert(JSON.stringify(state));
 
@@ -97,7 +98,6 @@ const Occasion: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
       </LayoutForm>
     </div>
   );
@@ -107,7 +107,7 @@ export default Occasion;
 const TagBox = ({ text, select }: ITagBox) => {
   return (
     <div
-      className="bg-primary h-[45px] min-w-[138px] px-[13px] py-[10px] group hover:cursor-pointer hover:bg-green-700"
+      className="bg-primary min-h-[45px] min-w-[138px] px-[13px] py-[10px] group hover:cursor-pointer hover:bg-green-700 my-2"
       onClick={(e) => select(text)}
     >
       <p className="text-[20px] leading-[23px] font-normal text-white group-hover:font-medium">

@@ -54,17 +54,17 @@ const Keyword: React.FC = () => {
           {/* Content area */}
           <div className="px-[52px] w-full">
             {/* row 1 */}
-            <div className="grid grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="col-start-1 col-end-6 w-full">
+            <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6">
+              <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   Which item would be <br />
                   the best gift for your mom?
                 </p>
                 <div className="w-full mt-8  relative"></div>
               </div>
-              <div className="col-start-6 col-end-11"></div>
+        
             </div>
-            <div className="flex gap-[88px] mb-5">
+            <div className="grid grid-cols-2 md:flex gap-[44px] md:gap-[88px] mb-5">
               {Items[count].map((text, index) => (
                 <ItemBox
                   key={index.toString()}
@@ -88,9 +88,13 @@ const Keyword: React.FC = () => {
             </div>
           </div>
           {/* next area */}
-          <button
-            disabled={activeIndex === -1 ? true : false}
-            className=" flex justify-end absolute bottom-0 w-full mb-[92px] "
+        </div>
+          <div
+            className=" flex justify-end absolute bottom-0 w-full  md:mb-[92px]"
+           
+          >
+            <button className="bg-primary w-[50%] py-4 pl-16  hover:bg-green-600"
+             disabled={activeIndex === -1 ? true : false}
             onClick={() => {
               if (count < 4) {
                 setCount(count + 1);
@@ -103,14 +107,12 @@ const Keyword: React.FC = () => {
                 navigate("/occasion", { replace: false });
               }
             }}
-          >
-            <div className="bg-primary w-[50%] py-4 pl-16  hover:bg-green-600">
+            >
               <p className="text-white font-semibold text-[25px] leading-[29px]">
                 Next Step
               </p>
-            </div>
-          </button>
-        </div>
+            </button>
+          </div>
       </LayoutForm>
     </div>
   );
@@ -130,7 +132,7 @@ const ItemBox = ({
     <div
       className={classNames(
         activeIndex === index ? "bg-red-500" : "",
-        "group h-[150px] w-[154px] px-[13px] py-[10px] border-l-2 border-b-2 border-l-primary border-b-primary pb-5 hover:bg-primary hover:rounded-lg"
+        "group md:h-[120px] md:w-[124px] md:h-[150px] md:w-[154px] px-[13px] py-[10px] border-l-2 border-b-2 border-l-primary border-b-primary pb-5 hover:bg-primary hover:rounded-lg"
       )}
       onClick={(e) => {
         onItemClick(index);

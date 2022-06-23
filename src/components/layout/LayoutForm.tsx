@@ -10,7 +10,7 @@ const LayoutForm = ({ children }: React.PropsWithChildren) => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <FormNav />
-      <div className="flex-1 h-full relative">{children}</div>
+      <div className="flex-1 h-full relative w-full">{children}</div>
     </div>
   );
 };

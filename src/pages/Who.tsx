@@ -58,10 +58,10 @@ const Who: React.FC = () => {
         </div>
         <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center">
           {/* Content area */}
-          <div className="px-[52px] w-full">
+          <div className="px-[26px] md:px-[52px] w-full">
             {/* row 1 */}
-            <div className="grid grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="col-start-1 col-end-6 w-full">
+            <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
+              <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   This gift is for whom?
                 </p>
@@ -81,7 +81,7 @@ const Who: React.FC = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-start-6 col-end-11">
+              <div className="md:col-start-6 md:col-end-11 mt-2 md:mt-0">
                 <div className="flex gap-9">
                   {Whos.map((text, index) => (
                     <TagBox
@@ -94,12 +94,12 @@ const Who: React.FC = () => {
               </div>
             </div>
             {/* row 2 */}
-            <div className="grid grid-cols-12 w-full mb-10">
-              <div className="col-start-1 col-end-6 w-full">
+            <div className="md:grid md:grid-cols-12 w-full mb-10">
+              <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   Birthday:
                 </p>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
                   {/* month */}
                   <div className="w-full mt-3">
                     <select
@@ -135,7 +135,7 @@ const Who: React.FC = () => {
                     </select>
                   </div>
                   {/* day */}
-                  <div className="w-full mt-3 col-span-2">
+                  <div className="w-full mt-3 md:col-span-2">
                     <select
                       id="year"
                       name="year"
@@ -153,7 +153,7 @@ const Who: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-start-6 col-end-11"></div>
+              {/* <div className="col-start-6 col-end-11"></div> */}
             </div>
             {/* row 3 */}
             <div className="grid grid-cols-12 w-full mb-10">
@@ -180,9 +180,11 @@ const Who: React.FC = () => {
               <div className="col-start-6 col-end-11"></div>
             </div>
           </div>
+        
+        </div>
           {/* next area */}
           <div
-            className=" flex justify-end absolute bottom-0 w-full mb-[92px] "
+            className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
             onClick={() => {
               window.alert(JSON.stringify(state));
 
@@ -195,7 +197,6 @@ const Who: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
       </LayoutForm>
     </div>
   );
