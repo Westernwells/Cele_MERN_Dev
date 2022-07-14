@@ -1,5 +1,10 @@
 import React from "react";
-import { useMatch, useResolvedPath, useLocation, useNavigate } from "react-router-dom";
+import {
+  useMatch,
+  useResolvedPath,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 import { classNames } from "../../utils";
 
@@ -70,9 +75,10 @@ const NavItem = ({
         "w-[154px] border-b-2 pb-3 flex gap-5 relative items-center text-[#050505]"
       )}
     >
-      <div className={classNames(match ? "block  active-bg" : "hidden")}></div>
+      {/* <div className={classNames(match ? "block  active-bg" : "hidden")}></div> */}
       <p className="z-10 font-normal text-[30px] leading-[35px]">{sNo + 1}.</p>
-      <div onClick={()=> navigate(to, { replace: true })}
+      <div
+        onClick={() => navigate(to, { replace: true })}
         className={classNames(
           match ? "font-medium" : "font-normal",
           "z-10 text-[20px] leading-[23px] no-underline cursor-pointer"
