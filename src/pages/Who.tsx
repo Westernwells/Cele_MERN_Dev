@@ -70,8 +70,8 @@ const Who: React.FC = () => {
     { value: "Uncle", label: "Uncle", genderNeutrality: false },
     { value: "Cousin", label: "Cousin", genderNeutrality: true },
     {
-      value: "Boss/Supervisor",
-      label: "Boss/Supervisor",
+      value: "Boss/Supervisor and Other",
+      label: "Boss/Supervisor and Other",
       genderNeutrality: true,
     },
     { value: "Nephew", label: "Nephew", genderNeutrality: false },
