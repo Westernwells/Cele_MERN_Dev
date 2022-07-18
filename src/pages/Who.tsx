@@ -70,8 +70,8 @@ const Who: React.FC = () => {
     { value: "Uncle", label: "Uncle", genderNeutrality: false },
     { value: "Cousin", label: "Cousin", genderNeutrality: true },
     {
-      value: "Boss/Supervisor and Other",
-      label: "Boss/Supervisor and Other",
+      value: "Boss/Supervisor",
+      label: "Boss/Supervisor",
       genderNeutrality: true,
     },
     { value: "Nephew", label: "Nephew", genderNeutrality: false },
@@ -97,6 +97,11 @@ const Who: React.FC = () => {
     { value: "Girlfriend", label: "Girlfriend", genderNeutrality: false },
     { value: "Grandparents", label: "Grandparents", genderNeutrality: true },
     { value: "Boyfriend", label: "Boyfriend", genderNeutrality: false },
+    {
+      value: "Other",
+      label: "Other",
+      genderNeutrality: true,
+    },
   ];
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
