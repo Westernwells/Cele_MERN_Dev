@@ -174,7 +174,7 @@ const Who: React.FC = () => {
             <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
               <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
-                  This gift is for whom?
+                  Who are you buying for?
                 </p>
                 <div className="w-full mt-3 z-50">
                   {/* <Autocomplete
