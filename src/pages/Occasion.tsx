@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-autocomplete";
+import Select, { GroupBase } from "react-select";
 import type * as CSS from "csstype";
+// import { ValueType } from "react-select/lib/types";
+export type OptionsType<OptionType> = OptionType[];
+
+export type ValueType<OptionType> =
+  | OptionType
+  | OptionsType<OptionType>
+  | null
+  | undefined;
 
 interface ITagBox {
   text: string;
@@ -14,9 +23,24 @@ interface IOptionFiled {
   // genderNeutrality: boolean;
 }
 const Occasions = ["Birthday", "Mother's Day", "Anniversary"];
-const Occassions = [
-  // { value: "", label: "" },
-
+interface GroupBaseX<Option> {
+  readonly options: readonly (string | GroupBase<string>)[];
+  readonly label?: string;
+}
+type Mapped<T> = {
+  readonly [K in keyof T]: string | GroupBase<string>;
+};
+const customStyles = {
+  indicatorsContainer: (provided: any, state: any) => ({
+    ...provided,
+    display: "hidden",
+  }),
+  indicatorSeparator: (provided: any, state: any) => ({
+    ...provided,
+    display: "hidden",
+  }),
+};
+const OValue: IOptionFiled[] = [
   { value: "Birthday", label: "Birthday" },
   { value: "Christmas", label: "Christmas" },
   { value: "Anniversary", label: "Anniversary" },
@@ -51,18 +75,38 @@ const Occassions = [
   }
   return 0;
 });
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 const Occasion: React.FC = () => {
   let navigate = useNavigate();
-  const [state, setState] = useState({
+  const [state, setState] = useState<{ occasion: string } | null>({
     occasion: "Type in to search the occasion",
   });
+  const [newState, setNewState] = useState<IOptionFiled | null>(null);
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setState({ occasion: e.target.value });
+  };
+  // type Red = ValueType<IOptionFiled> as unkonwn
+  const handleChange = (option: ValueType<IOptionFiled>) => {
+    // console.log("options", option);
+    // console.log(option);
+
+    setNewState(
+      option
+        ? {
+            value: (option as IOptionFiled).value,
+            label: (option as IOptionFiled).label,
+          }
+        : null
+    );
   };
   const setOccasion = (e: string) => {
-    setState({ ...state, occasion: e });
+    setNewState({ value: e, label: e });
   };
   return (
     <div>
@@ -91,6 +135,16 @@ const Occasion: React.FC = () => {
                   What is the special occasion?
                 </p>
                 <div className="w-full mt-3">
+                  <Select<IOptionFiled>
+                    getOptionLabel={(option: IOptionFiled) => option.label}
+                    getOptionValue={(option: IOptionFiled) => option.value}
+                    value={newState}
+                    styles={customStyles}
+                    placeholder={"Type in to search the occasion"}
+                    // onChange={setNewState}
+                    options={OValue}
+                    onChange={handleChange}
+                  />
                   {/* <select
                     id="occasion"
                     name="occasion"
@@ -106,9 +160,9 @@ const Occasion: React.FC = () => {
                       </option>
                     ))}
                   </select> */}
-                  <Autocomplete
+                  {/* <Autocomplete
                     className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
-                    items={[...Occassions]}
+                    // items={[...OValue]}
                     shouldItemRender={(item: IOptionFiled, value: string) =>
                       item.value.toLowerCase().indexOf(value.toLowerCase()) > -1
                     }
@@ -164,14 +218,14 @@ const Occasion: React.FC = () => {
                         {item.label}
                       </div>
                     )}
-                    value={state.occasion}
+                    value={state?.occasion}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setState({ ...state, occasion: e.target.value })
                     }
                     onSelect={(value: string) =>
                       setState({ ...state, occasion: value })
                     }
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="col-start-6 col-end-11"></div>
