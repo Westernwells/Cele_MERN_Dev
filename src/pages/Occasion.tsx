@@ -1,10 +1,8 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { useNavigate } from "react-router-dom";
-import Autocomplete from "react-autocomplete";
 import Select, { GroupBase } from "react-select";
-import type * as CSS from "csstype";
-// import { ValueType } from "react-select/lib/types";
+import { useAppState } from "../context/AppStateContext";
 export type OptionsType<OptionType> = OptionType[];
 
 export type ValueType<OptionType> =
@@ -82,6 +80,17 @@ const options = [
 ];
 const Occasion: React.FC = () => {
   let navigate = useNavigate();
+  const { state: formState, setState: setFormState } = useAppState();
+  useEffect(() => {
+    setNewState(
+      formState.formState.occasion
+        ? {
+            value: formState.formState.occasion,
+            label: formState.formState.occasion,
+          }
+        : null
+    );
+  }, [formState.formState.occasion]);
   const [state, setState] = useState<{ occasion: string } | null>({
     occasion: "Type in to search the occasion",
   });
@@ -91,11 +100,8 @@ const Occasion: React.FC = () => {
   ) => {
     setState({ occasion: e.target.value });
   };
-  // type Red = ValueType<IOptionFiled> as unkonwn
-  const handleChange = (option: ValueType<IOptionFiled>) => {
-    // console.log("options", option);
-    // console.log(option);
 
+  const handleChange = (option: ValueType<IOptionFiled>) => {
     setNewState(
       option
         ? {
@@ -104,9 +110,23 @@ const Occasion: React.FC = () => {
           }
         : null
     );
+    setFormState({
+      ...formState,
+      formState: {
+        ...formState.formState,
+        occasion: (option as IOptionFiled).value,
+      },
+    });
   };
   const setOccasion = (e: string) => {
     setNewState({ value: e, label: e });
+    setFormState({
+      ...formState,
+      formState: {
+        ...formState.formState,
+        occasion: e,
+      },
+    });
   };
   return (
     <div>
@@ -141,91 +161,9 @@ const Occasion: React.FC = () => {
                     value={newState}
                     styles={customStyles}
                     placeholder={"Type in to search the occasion"}
-                    // onChange={setNewState}
                     options={OValue}
                     onChange={handleChange}
                   />
-                  {/* <select
-                    id="occasion"
-                    name="occasion"
-                    value={state.occasion}
-                    onChange={onChange}
-                    autoComplete="country-name"
-                    className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
-                  >
-                    <option>Type in to search the occasion</option>
-                    {Occasions.map((item, index) => (
-                      <option key={index.toString()} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select> */}
-                  {/* <Autocomplete
-                    className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
-                    // items={[...OValue]}
-                    shouldItemRender={(item: IOptionFiled, value: string) =>
-                      item.value.toLowerCase().indexOf(value.toLowerCase()) > -1
-                    }
-                    style={{
-                      width: "1000px",
-                    }}
-                    inputProps={{
-                      style: {
-                        width: "100%",
-                        padding: "12px",
-                        zIndex: "10000",
-                      },
-                    }}
-                    wrapperStyle={{
-                      backgroundColor: "red",
-                      width: "100%",
-                      borderWidth: "0",
-                      borderBottomWidth: "2px",
-                      borderColor: "green",
-                      boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-                      zIndex: "10000",
-                    }}
-                    menuStyle={{
-                      zIndex: "100000",
-                      borderRadius: "3px",
-                      boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
-                      background: "rgba(255, 255, 255, 0.9)",
-                      padding: "2px 0",
-                      fontSize: "90%",
-                      position: "fixed",
-                      overflow: "auto",
-                      maxHeight: "50%",
-                      backgroundColor: "white",
-                    }}
-                    getItemValue={(item: IOptionFiled) => item.value}
-                    renderItem={(
-                      item: IOptionFiled,
-                      highlighted: boolean,
-                      styles: CSS.Properties
-                    ) => (
-                      <div
-                        className="w-full"
-                        key={item.value}
-                        style={{
-                          ...styles,
-                          width: "100%",
-                          padding: "12px",
-                          zIndex: "10000",
-                          borderWidth: "0px",
-                          border: "0px transparent solid",
-                        }}
-                      >
-                        {item.label}
-                      </div>
-                    )}
-                    value={state?.occasion}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setState({ ...state, occasion: e.target.value })
-                    }
-                    onSelect={(value: string) =>
-                      setState({ ...state, occasion: value })
-                    }
-                  /> */}
                 </div>
               </div>
               <div className="col-start-6 col-end-11"></div>
@@ -243,7 +181,6 @@ const Occasion: React.FC = () => {
                   ))}
                 </div>
               </div>
-              {/* <div className="col-start-6 col-end-11"></div> */}
             </div>
           </div>
         </div>
@@ -251,7 +188,7 @@ const Occasion: React.FC = () => {
         <div
           className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
           onClick={() => {
-            window.alert(JSON.stringify(state));
+            window.alert(JSON.stringify(formState.formState));
 
             navigate("/price", { replace: false });
           }}

@@ -7,14 +7,14 @@ import {
 } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 import { classNames } from "../../utils";
+import { useAppState } from "../../context/AppStateContext";
 
-// const isActive =()=>[
-//   if(){}
-// ]
 export default function FormNav() {
+  const { state } = useAppState();
+
   let location = useLocation();
   const Menus = [
-    { name: "Who", step: "/" },
+    { name: state?.formState.who ? state?.formState.who : "Who", step: "/" },
     {
       name:
         location.pathname === "/keyword" ||
@@ -27,7 +27,9 @@ export default function FormNav() {
     {
       name:
         location.pathname === "/occasion" || location.pathname === "/price"
-          ? "Occasion"
+          ? state?.formState.occasion
+            ? state?.formState.occasion
+            : "Occasion"
           : "",
       step: "/occasion",
     },
@@ -75,7 +77,6 @@ const NavItem = ({
         "w-[154px] border-b-2 pb-3 flex gap-5 relative items-center text-[#050505]"
       )}
     >
-      {/* <div className={classNames(match ? "block  active-bg" : "hidden")}></div> */}
       <p className="z-10 font-normal text-[30px] leading-[35px]">{sNo + 1}.</p>
       <div
         onClick={() => navigate(to, { replace: true })}

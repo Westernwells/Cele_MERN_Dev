@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { Range, getTrackBackground } from "react-range";
 import { useNavigate } from "react-router-dom";
+import { useAppState } from "../context/AppStateContext";
+import { MyDialog } from "../components/modal";
 
-interface ITagBox {
-  text: string;
-  select: (text: string) => void;
-}
 const STEP = 5;
 const MIN = 5;
 const MAX = 1000;
 const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
   let navigate = useNavigate();
+  const { state, setState } = useAppState();
+  useEffect(() => {
+    setValues([...state.formState.range]);
+  }, [state.formState.range]);
 
-  const [state, setState] = useState<any>({ values: [50] });
   const [values, setValues] = React.useState([5, 1000]);
+  let [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
       <LayoutForm>
@@ -50,6 +53,13 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                     rtl={rtl}
                     onChange={(values) => {
                       setValues(values);
+                      setState({
+                        ...state,
+                        formState: {
+                          ...state.formState,
+                          range: values,
+                        },
+                      });
                     }}
                     renderTrack={({ props, children }) => (
                       <div
@@ -108,10 +118,6 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                       $1000
                     </p>
                   </div>
-
-                  {/* <output style={{ marginTop: "30px" }} id="output">
-                    {values[0].toFixed(1)} - {values[1].toFixed(1)}
-                  </output> */}
                 </div>
               </div>
               <div className="col-start-6 col-end-11"></div>
@@ -119,37 +125,22 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
           </div>
           {/* next area */}
         </div>
-          <div
-            className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
-            onClick={() => {
-              window.alert(
-                `$ ${values[0].toFixed(1)} - $ ${values[1].toFixed(1)}`
-              );
-
-              navigate("/", { replace: false });
-            }}
-          >
-            <div className="bg-primary w-[50%] py-4 pl-16 cursor-pointer hover:bg-green-600">
-              <p className="text-white font-semibold text-[25px] leading-[29px]">
-                Next Step
-              </p>
-            </div>
+        <div
+          className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
+          onClick={() => {
+            setIsOpen(true);
+            // navigate("/", { replace: false });
+          }}
+        >
+          <div className="bg-primary w-[50%] py-4 pl-16 cursor-pointer hover:bg-green-600">
+            <p className="text-white font-semibold text-[25px] leading-[29px]">
+              Review
+            </p>
           </div>
+        </div>
       </LayoutForm>
+      <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
 export default Price;
-
-const TagBox = ({ text, select }: ITagBox) => {
-  return (
-    <div
-      className="bg-primary h-[45px] w-[138px] px-[13px] py-[10px]"
-      onClick={(e) => select(text)}
-    >
-      <p className="text-[20px] leading-[23px] font-normal text-white">
-        {text}
-      </p>
-    </div>
-  );
-};

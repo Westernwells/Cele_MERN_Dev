@@ -5,6 +5,7 @@ import Headphone from "../Assets/noun-book-1005293 1.svg";
 import { BookSvg } from "../Svgs/index";
 import { useNavigate } from "react-router-dom";
 import { classNames } from "../utils";
+import { useAppState } from "../context/AppStateContext";
 interface ITagBox {
   text: string;
   select: (text: string) => void;
@@ -22,6 +23,8 @@ const Items = [
 ];
 const Keyword: React.FC = () => {
   let navigate = useNavigate();
+  const { state, setState } = useAppState();
+
   const [count, setCount] = useState<number>(0);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [selectedItems, setSelecedItems] = useState<string[]>([]);
@@ -62,7 +65,6 @@ const Keyword: React.FC = () => {
                 </p>
                 <div className="w-full mt-8  relative"></div>
               </div>
-        
             </div>
             <div className="grid grid-cols-2 md:flex gap-[44px] md:gap-[88px] mb-5">
               {Items[count].map((text, index) => (
@@ -89,30 +91,35 @@ const Keyword: React.FC = () => {
           </div>
           {/* next area */}
         </div>
-          <div
-            className=" flex justify-end absolute bottom-0 w-full  md:mb-[92px]"
-           
-          >
-            <button className="bg-primary w-[50%] py-4 pl-16  hover:bg-green-600"
-             disabled={activeIndex === -1 ? true : false}
+        <div className=" flex justify-end absolute bottom-0 w-full  md:mb-[92px]">
+          <button
+            className="bg-primary w-[50%] py-4 pl-16  hover:bg-green-600"
+            disabled={activeIndex === -1 ? true : false}
             onClick={() => {
               if (count < 4) {
                 setCount(count + 1);
                 setSelecedItems([...selectedItems, itemToAdd]);
-
                 setActiveIndex(-1);
                 setItemToAdd("");
               } else {
                 window.alert([...selectedItems, itemToAdd]);
+                setState({
+                  ...state,
+                  formState: {
+                    ...state.formState,
+                    keywords: [...selectedItems, itemToAdd],
+                  },
+                });
+
                 navigate("/occasion", { replace: false });
               }
             }}
-            >
-              <p className="text-white font-semibold text-[25px] leading-[29px]">
-                Next Step
-              </p>
-            </button>
-          </div>
+          >
+            <p className="text-white font-semibold text-[25px] leading-[29px]">
+              Next Step
+            </p>
+          </button>
+        </div>
       </LayoutForm>
     </div>
   );

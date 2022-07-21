@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { useNavigate } from "react-router-dom";
-import Autocomplete from "react-autocomplete";
-import type * as CSS from "csstype";
+import { useAppState } from "../context/AppStateContext";
 interface ITagBox {
   text: string;
   select: (text: string) => void;
@@ -11,29 +10,28 @@ interface IOptionFiled {
   value: string;
   label: string;
   genderNeutrality: boolean;
+  gender?: string;
 }
 const Who: React.FC = () => {
-  const [state, setState] = useState({
-    who: "Type in to search the option",
-    month: "",
-    day: "",
-    year: "",
-    gender: "",
-  });
+  const { state, setState } = useAppState();
+
   const [disbleGender, setDisableGender] = useState(true);
   useEffect(() => {
-    if (state.who) {
-      let who = WhoOption.find((item) => item.value === state.who);
+    if (state.formState.who) {
+      let who = WhoOption.find((item) => item.value === state.formState.who);
       let Disable = who?.genderNeutrality === true ? false : true;
       if (Disable) {
         setDisableGender(true);
-        setState({ ...state, gender: "" });
+        setState({
+          ...state,
+          formState: { ...state.formState, gender: who?.gender },
+        });
       } else {
-        setState({ ...state, gender: "" });
+        setState({ ...state, formState: { ...state.formState, gender: "" } });
         setDisableGender(false);
       }
     }
-  }, [state.who]);
+  }, [state.formState.who]);
 
   const Months = [
     "Jan",
@@ -49,38 +47,73 @@ const Who: React.FC = () => {
     "Nov",
     "Dec",
   ];
-  const Whos = ["Father", "Mother", "Partner"];
+  const Whos = ["Father", "Mother", "Wife"];
   const WhoOption: Array<IOptionFiled> = [
-    // {
-    //   value: "",
-    //   label: "Type in to search the option",
-    //   genderNeutrality: false,
-    // },
-    { value: "Son", label: "Son", genderNeutrality: false },
-    { value: "Mother", label: "Mother", genderNeutrality: false },
-    { value: "Wife", label: "Wife", genderNeutrality: false },
-    { value: "Daughter", label: "Daughter", genderNeutrality: false },
-    { value: "Father", label: "Father", genderNeutrality: false },
-    { value: "Brother", label: "Brother", genderNeutrality: false },
-    { value: "Sister", label: "Sister", genderNeutrality: false },
+    { value: "Son", label: "Son", genderNeutrality: false, gender: "Male" },
+    {
+      value: "Mother",
+      label: "Mother",
+      genderNeutrality: false,
+      gender: "Female",
+    },
+    { value: "Wife", label: "Wife", genderNeutrality: false, gender: "Female" },
+    {
+      value: "Daughter",
+      label: "Daughter",
+      genderNeutrality: false,
+      gender: "Female",
+    },
+    {
+      value: "Father",
+      label: "Father",
+      genderNeutrality: false,
+      gender: "Male",
+    },
+    {
+      value: "Brother",
+      label: "Brother",
+      genderNeutrality: false,
+      gender: "Male",
+    },
+    {
+      value: "Sister",
+      label: "Sister",
+      genderNeutrality: false,
+      gender: "Female",
+    },
     { value: "Friend", label: "Friend", genderNeutrality: true },
-    { value: "Husband", label: "Husband", genderNeutrality: false },
-    { value: "Niece", label: "Niece", genderNeutrality: false },
+    {
+      value: "Husband",
+      label: "Husband",
+      genderNeutrality: false,
+      gender: "Male",
+    },
+    {
+      value: "Niece",
+      label: "Niece",
+      genderNeutrality: false,
+      gender: "Female",
+    },
     { value: "Coworker", label: "Coworker", genderNeutrality: true },
-    { value: "Uncle", label: "Uncle", genderNeutrality: false },
+    { value: "Uncle", label: "Uncle", genderNeutrality: false, gender: "Male" },
     { value: "Cousin", label: "Cousin", genderNeutrality: true },
     {
       value: "Boss/Supervisor",
       label: "Boss/Supervisor",
       genderNeutrality: true,
     },
-    { value: "Nephew", label: "Nephew", genderNeutrality: false },
+    {
+      value: "Nephew",
+      label: "Nephew",
+      genderNeutrality: false,
+      gender: "Male",
+    },
     {
       value: "In-law(Parents)",
       label: "In-law(Parents)",
       genderNeutrality: true,
     },
-    { value: "Aunt", label: "Aunt", genderNeutrality: false },
+    { value: "Aunt", label: "Aunt", genderNeutrality: false, gender: "Female" },
     {
       value: "Direct Report/Employee",
       label: "Direct Report/Employee",
@@ -94,9 +127,19 @@ const Who: React.FC = () => {
       label: "Teacher, Coach, Tutor, Religious Leader, etc.",
       genderNeutrality: true,
     },
-    { value: "Girlfriend", label: "Girlfriend", genderNeutrality: false },
+    {
+      value: "Girlfriend",
+      label: "Girlfriend",
+      genderNeutrality: false,
+      gender: "Female",
+    },
     { value: "Grandparents", label: "Grandparents", genderNeutrality: true },
-    { value: "Boyfriend", label: "Boyfriend", genderNeutrality: false },
+    {
+      value: "Boyfriend",
+      label: "Boyfriend",
+      genderNeutrality: false,
+      gender: "Male",
+    },
     {
       value: "Other",
       label: "Other",
@@ -106,12 +149,16 @@ const Who: React.FC = () => {
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setState({
+      ...state,
+      formState: { ...state.formState, [e.target.name]: e.target.value },
+    });
   };
   const setWho = (e: string) => {
-    setState({ ...state, who: e });
+    setState({ ...state, formState: { ...state.formState, who: e } });
   };
   let navigate = useNavigate();
+
   return (
     <div>
       <LayoutForm>
@@ -132,44 +179,7 @@ const Who: React.FC = () => {
           {/* Content area */}
           <div className="px-[26px] md:px-[52px] w-full">
             {/* row 1 */}
-            {/* <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="md:col-start-1 md:col-end-6 w-full">
-                <p className="text-[25px] leading-[29px] font-semibold">
-                  This gift is for whom?
-                </p>
-                <div className="w-full mt-3">
-                  <select
-                    id="who"
-                    name="who"
-                    value={state.who}
-                    onChange={onChange}
-                    autoComplete="who"
-                    className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
-                  >
-                    <option value={""}>Type in to search the option</option>
-                    {WhoOption.map((item, index) => (
-                      <option value={item.value} key={index.toString()}>
-                        {item.value}
-                      </option>
-                    ))}
-                    <option value="Father">Father</option>
-                    <option value="Mother">Mother</option>
-                    <option value="Partner">Partner</option>
-                  </select>
-                </div>
-              </div>
-              <div className="md:col-start-6 md:col-end-11 mt-2 md:mt-0">
-                <div className="flex gap-9">
-                  {Whos.map((text, index) => (
-                    <TagBox
-                      key={index.toString()}
-                      text={text}
-                      select={setWho}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div> */}
+
             {/* Test with autocomplter */}
             <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
               <div className="md:col-start-1 md:col-end-6 w-full">
@@ -177,77 +187,10 @@ const Who: React.FC = () => {
                   Who are you buying for?
                 </p>
                 <div className="w-full mt-3 z-50">
-                  {/* <Autocomplete
-                    className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
-                    items={[...WhoOption]}
-                    shouldItemRender={(item: IOptionFiled, value: string) =>
-                      item.value.toLowerCase().indexOf(value.toLowerCase()) > -1
-                    }
-                    style={{
-                      width: "1000px",
-                    }}
-                    inputProps={{
-                      style: {
-                        width: "100%",
-                        padding: "12px",
-                        zIndex: "10000",
-                      },
-                    }}
-                    wrapperStyle={{
-                      backgroundColor: "red",
-                      width: "100%",
-                      borderWidth: "0",
-                      borderBottomWidth: "2px",
-                      borderColor: "green",
-                      boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-                      zIndex: "10000",
-                    }}
-                    menuStyle={{
-                      zIndex: "100000",
-                      borderRadius: "3px",
-                      boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
-                      background: "rgba(255, 255, 255, 0.9)",
-                      padding: "2px 0",
-                      fontSize: "90%",
-                      position: "fixed",
-                      overflow: "auto",
-                      maxHeight: "50%",
-                      backgroundColor: "white",
-                    }}
-                    getItemValue={(item: IOptionFiled) => item.value}
-                    renderItem={(
-                      item: IOptionFiled,
-                      highlighted: boolean,
-                      styles: CSS.Properties
-                    ) => (
-                      <div
-                        className="w-full"
-                        key={item.value}
-                        style={{
-                          ...styles,
-                          width: "100%",
-                          padding: "12px",
-                          zIndex: "10000",
-                          borderWidth: "0px",
-                          border: "0px transparent solid",
-                        }}
-                      >
-                        {item.label}
-                      </div>
-                    )}
-                    value={state.who}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setState({ ...state, who: e.target.value })
-                    }
-                    onSelect={(value: string) =>
-                      setState({ ...state, who: value })
-                    }
-                  /> */}
-
                   <select
                     id="who"
                     name="who"
-                    value={state.who}
+                    value={state.formState.who}
                     onChange={onChange}
                     autoComplete="who"
                     className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
@@ -285,7 +228,7 @@ const Who: React.FC = () => {
                     <select
                       id="month"
                       name="month"
-                      value={state.month}
+                      value={state.formState.month}
                       onChange={onChange}
                       autoComplete="country-name"
                       className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
@@ -302,7 +245,7 @@ const Who: React.FC = () => {
                     <select
                       id="day"
                       name="day"
-                      value={state.day}
+                      value={state.formState.day}
                       onChange={onChange}
                       autoComplete="country-name"
                       className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
@@ -319,7 +262,7 @@ const Who: React.FC = () => {
                     <select
                       id="year"
                       name="year"
-                      value={state.year}
+                      value={state.formState.year}
                       onChange={onChange}
                       autoComplete="country-name"
                       className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary"
@@ -338,15 +281,12 @@ const Who: React.FC = () => {
             {/* row 3 */}
             <div className="grid grid-cols-12 w-full mb-10">
               <div className="col-start-1 col-end-6 w-full">
-                {/* <p className="text-[25px] leading-[29px] font-semibold">
-                  Gender?
-                </p> */}
                 <div className="w-full mt-3">
                   <select
                     disabled={disbleGender}
                     id="gender"
                     name="gender"
-                    value={state.gender}
+                    value={state.formState.gender}
                     onChange={onChange}
                     autoComplete="country-name"
                     className="w-full focus:ring-white focus:border-b-2 focus:border-b-primary border-b-2 shadow-sm  sm:text-sm border-0 border-b-primary z-0"
@@ -367,7 +307,6 @@ const Who: React.FC = () => {
           className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
           onClick={() => {
             window.alert(JSON.stringify(state));
-
             navigate("../keyword", { replace: false });
           }}
         >
