@@ -21,13 +21,7 @@ interface IOptionFiled {
   // genderNeutrality: boolean;
 }
 const Occasions = ["Birthday", "Mother's Day", "Anniversary"];
-interface GroupBaseX<Option> {
-  readonly options: readonly (string | GroupBase<string>)[];
-  readonly label?: string;
-}
-type Mapped<T> = {
-  readonly [K in keyof T]: string | GroupBase<string>;
-};
+
 const customStyles = {
   indicatorsContainer: (provided: any, state: any) => ({
     ...provided,
@@ -132,7 +126,7 @@ const Occasion: React.FC = () => {
     <div>
       <LayoutForm>
         {/* Skip area */}
-        <div className="flex  justify-end absolute w-full">
+        <div className="flex  justify-end absolute w-full mt-12">
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
@@ -150,7 +144,7 @@ const Occasion: React.FC = () => {
           <div className="px-[52px] w-full">
             {/* row 1 */}
             <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 items-end">
-              <div className="md:col-start-1 md:col-end-6 w-full">
+              <div className="md:col-start-1 md:col-end-8 lg:col-start-1 lg:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   What is the special occasion?
                 </p>
@@ -169,9 +163,9 @@ const Occasion: React.FC = () => {
               <div className="col-start-6 col-end-11"></div>
             </div>
             {/* row 2 */}
-            <div className="md:grid md:grid-cols-12 w-full mb-10">
-              <div className="md:col-start-1 md:col-end-6 w-full">
-                <div className="sm:grid grid-cols-2 md:flex md:flex-wrap md:gap-9">
+            <div className=" w-full mb-10">
+              <div className="w-full">
+                <div className="sm:grid grid-cols-3 md:flex md:flex-wrap md:gap-9">
                   {Occasions.map((text, index) => (
                     <TagBox
                       key={index.toString()}
@@ -182,6 +176,19 @@ const Occasion: React.FC = () => {
                 </div>
               </div>
             </div>
+            {/* <div className="md:grid md:grid-cols-12 w-full mb-10">
+              <div className="md:col-start-1 md:col-end-6 w-full">
+                <div className="sm:grid grid-cols-3 md:flex md:flex-wrap md:gap-9">
+                  {Occasions.map((text, index) => (
+                    <TagBox
+                      key={index.toString()}
+                      text={text}
+                      select={setOccasion}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div> */}
           </div>
         </div>
         {/* next area */}

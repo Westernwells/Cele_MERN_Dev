@@ -10,7 +10,7 @@ interface ITagBox {
   text: string;
   select: (text: string) => void;
   onItemClick: (index: number) => void;
-  addItem: (text: string) => void;
+  addItem: (text: string, index?: number) => void;
   index: number;
   activeIndex: number;
 }
@@ -32,15 +32,49 @@ const Keyword: React.FC = () => {
 
   const onItemClick = (index: number) => {
     setActiveIndex(index);
+    if (count < 4) {
+      setCount(count + 1);
+      setSelecedItems([...selectedItems, itemToAdd]);
+      setActiveIndex(-1);
+      setItemToAdd("");
+    } else {
+      window.alert([...selectedItems, itemToAdd]);
+      setState({
+        ...state,
+        formState: {
+          ...state.formState,
+          keywords: [...selectedItems, itemToAdd],
+        },
+      });
+
+      navigate("/occasion", { replace: false });
+    }
   };
-  const addItem = (item: string) => {
-    setItemToAdd(item);
+  const addItem = (item: string, index?: number) => {
+    if (count < 4) {
+      // setItemToAdd(item);
+      setSelecedItems([...selectedItems, item]);
+      setCount(count + 1);
+    } else {
+      // setItemToAdd(item);
+      setSelecedItems([...selectedItems, item]);
+      setState({
+        ...state,
+        formState: {
+          ...state.formState,
+          keywords: [...selectedItems, item],
+        },
+      });
+      window.alert([...selectedItems, item]);
+
+      navigate("/occasion", { replace: false });
+    }
   };
   return (
     <div>
       <LayoutForm>
         {/* Skip area */}
-        <div className="flex  justify-end absolute w-full">
+        <div className="flex  justify-end absolute w-full mt-12">
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
@@ -91,7 +125,7 @@ const Keyword: React.FC = () => {
           </div>
           {/* next area */}
         </div>
-        <div className=" flex justify-end absolute bottom-0 w-full  md:mb-[92px]">
+        {/* <div className=" flex justify-end absolute bottom-0 w-full  md:mb-[92px]">
           <button
             className="bg-primary w-[50%] py-4 pl-16  hover:bg-green-600"
             disabled={activeIndex === -1 ? true : false}
@@ -119,7 +153,7 @@ const Keyword: React.FC = () => {
               Next Step
             </p>
           </button>
-        </div>
+        </div> */}
       </LayoutForm>
     </div>
   );
@@ -142,9 +176,9 @@ const ItemBox = ({
         "group md:h-[120px] md:w-[124px] md:h-[150px] md:w-[154px] px-[13px] py-[10px] border-l-2 border-b-2 border-l-primary border-b-primary pb-5 hover:bg-primary hover:rounded-lg"
       )}
       onClick={(e) => {
-        onItemClick(index);
+        addItem(text, index);
+        // onItemClick(index);
         setActive(true);
-        addItem(text);
         // select(text);
       }}
     >

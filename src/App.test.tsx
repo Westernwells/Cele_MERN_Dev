@@ -1,9 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+import { AppStateProvider } from "./context/AppStateContext";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+test("renders app correctly", () => {
+  render(
+    <AppStateProvider>
+      <App />
+    </AppStateProvider>
+  );
+  const linkElement = screen.getByText(/who are you buying for/i);
   expect(linkElement).toBeInTheDocument();
 });

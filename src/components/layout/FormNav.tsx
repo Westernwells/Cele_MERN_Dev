@@ -23,6 +23,12 @@ export default function FormNav() {
           ? "Keyword"
           : "",
       step: "/keyword",
+      disabled:
+        location.pathname === "/keyword" ||
+        location.pathname === "/occasion" ||
+        location.pathname === "/price"
+          ? false
+          : true,
     },
     {
       name:
@@ -32,20 +38,46 @@ export default function FormNav() {
             : "Occasion"
           : "",
       step: "/occasion",
+      disabled:
+        location.pathname === "/occasion" || location.pathname === "/price"
+          ? false
+          : true,
     },
-    { name: location.pathname === "/price" ? "Budget" : "", step: "/price" },
+    {
+      name: location.pathname === "/price" ? "Budget" : "",
+      step: "/price",
+      disabled: location.pathname === "/price" ? false : true,
+    },
   ];
   const MenusV2 = [
-    { name: state?.formState.who ? state?.formState.who : "Who", step: "/" },
+    {
+      name: state?.formState.who ? state?.formState.who : "Who",
+      step: "/",
+      disabled: false,
+    },
     {
       name: "Keyword",
       step: "/keyword",
+      disabled:
+        location.pathname === "/keyword" ||
+        location.pathname === "/occasion" ||
+        location.pathname === "/price"
+          ? false
+          : true,
     },
     {
       name: state?.formState.occasion ? state?.formState.occasion : "Occasion",
       step: "/occasion",
+      disabled:
+        location.pathname === "/occasion" || location.pathname === "/price"
+          ? false
+          : true,
     },
-    { name: "Budget", step: "/price" },
+    {
+      name: "Budget",
+      step: "/price",
+      disabled: location.pathname === "/price" ? false : true,
+    },
   ];
   return (
     <div className=" w-full px-4 md:px-[54px] my-4 mx-auto mt-12 mb-6 md:mb-0 md:mt-0">
@@ -57,6 +89,7 @@ export default function FormNav() {
             key={index.toString()}
             sNo={index}
             isActive={false}
+            disabled={item.disabled}
           />
         ))}
       </div>
@@ -68,6 +101,7 @@ interface INavItem {
   sNo: number;
   text?: string;
   isActive: boolean;
+  disabled: boolean;
 }
 const NavItem = ({
   sNo,
@@ -75,6 +109,7 @@ const NavItem = ({
   isActive,
   children,
   to,
+  disabled,
   ...props
 }: INavItem & LinkProps) => {
   let resolved = useResolvedPath(to);
@@ -90,9 +125,16 @@ const NavItem = ({
     >
       <p className="z-10 font-normal text-[30px] leading-[35px]">{sNo + 1}.</p>
       <div
-        // onClick={() => navigate(to, { replace: true })}
+        role={"button"}
+        aria-disabled={disabled}
+        onClick={() => {
+          if (!disabled) {
+            navigate(to, { replace: true });
+          }
+        }}
         className={classNames(
           match ? "font-medium text-black" : "font-normal text-gray-700",
+          disabled ? "cursor-not-allowed" : "cursor-pointer",
           "z-10 text-[20px] leading-[23px] no-underline"
         )}
       >

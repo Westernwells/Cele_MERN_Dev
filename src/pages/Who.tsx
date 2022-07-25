@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { useNavigate } from "react-router-dom";
 import { useAppState } from "../context/AppStateContext";
+import Select from "react-select";
+export type OptionsType<OptionType> = OptionType[];
+
+export type ValueType<OptionType> =
+  | OptionType
+  | OptionsType<OptionType>
+  | null
+  | undefined;
+
 interface ITagBox {
   text: string;
   select: (text: string) => void;
@@ -12,13 +21,27 @@ interface IOptionFiled {
   genderNeutrality: boolean;
   gender?: string;
 }
+interface IOptionFiled {
+  value: string;
+  label: string;
+  // genderNeutrality: boolean;
+}
 const Who: React.FC = () => {
   const { state, setState } = useAppState();
 
   const [disbleGender, setDisableGender] = useState(true);
+  const [newState, setNewState] = useState<IOptionFiled | null>(null);
+
   useEffect(() => {
     if (state.formState.who) {
-      let who = WhoOption.find((item) => item.value === state.formState.who);
+      let who = WhoOption.find(
+        (item) => item.value === state.formState.who
+      ) || { value: "", label: "", genderNeutrality: true };
+      setNewState({
+        value: who?.value,
+        genderNeutrality: who?.genderNeutrality,
+        label: who?.label,
+      });
       let Disable = who?.genderNeutrality === true ? false : true;
       if (Disable) {
         setDisableGender(true);
@@ -159,11 +182,39 @@ const Who: React.FC = () => {
   };
   let navigate = useNavigate();
 
+  const handleChange = (option: ValueType<IOptionFiled>) => {
+    setNewState(
+      option
+        ? {
+            value: (option as IOptionFiled).value,
+            label: (option as IOptionFiled).label,
+            genderNeutrality: (option as IOptionFiled).genderNeutrality,
+          }
+        : null
+    );
+    setState({
+      ...state,
+      formState: {
+        ...state.formState,
+        who: (option as IOptionFiled).value,
+      },
+    });
+  };
+  const customStyles = {
+    indicatorsContainer: (provided: any, state: any) => ({
+      ...provided,
+      display: "hidden",
+    }),
+    indicatorSeparator: (provided: any, state: any) => ({
+      ...provided,
+      display: "hidden",
+    }),
+  };
   return (
     <div>
       <LayoutForm>
         {/* Skip area */}
-        <div className="flex  justify-end absolute w-full">
+        <div className="flex  justify-end absolute w-full mt-12">
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
@@ -187,7 +238,16 @@ const Who: React.FC = () => {
                   Who are you buying for?
                 </p>
                 <div className="w-full mt-3 z-50">
-                  <select
+                  <Select<IOptionFiled>
+                    getOptionLabel={(option: IOptionFiled) => option.label}
+                    getOptionValue={(option: IOptionFiled) => option.value}
+                    value={newState}
+                    styles={customStyles}
+                    placeholder={"Type in to search the option"}
+                    options={WhoOption}
+                    onChange={handleChange}
+                  />
+                  {/* <select
                     id="who"
                     name="who"
                     value={state.formState.who}
@@ -201,7 +261,7 @@ const Who: React.FC = () => {
                         {item.value}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </div>
               </div>
               <div className="md:col-start-6 md:col-end-11 mt-2 md:mt-0">

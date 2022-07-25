@@ -22,7 +22,7 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
     <div>
       <LayoutForm>
         {/* Skip area */}
-        <div className="flex  justify-end absolute w-full">
+        <div className="flex  justify-end absolute w-full mt-12">
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
@@ -110,13 +110,35 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                     )}
                   />
                   <div className="flex w-full justify-between">
-                    <p className="text-[20px] leading-[23px] font-normal">$5</p>
-                    <p className="text-[20px] leading-[23px] font-normal">
+                    <div className="flex items-center">
+                      <p className="text-[20px] leading-[23px] font-normal">
+                        $
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          setValues([Number(e.target.value), values[1]]);
+                        }}
+                        value={values[0].toFixed(0)}
+                        placeholder={"5"}
+                        className="w-16 h-6 border-primary border-2 px-1 py-4 text-lg text-center focus:ring-primary focus:outline-primary ml-2"
+                      />
+                    </div>
+                    {/* <p className="text-[20px] leading-[23px] font-normal">
                       {`$ ${values[0].toFixed(1)} - $ ${values[1].toFixed(1)}`}
-                    </p>
-                    <p className="text-[20px] leading-[23px] font-normal">
-                      $1000
-                    </p>
+                    </p> */}
+                    <div className="flex items-center">
+                      <p className="text-[20px] leading-[23px] font-normal">
+                        $
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          setValues([values[1], Number(e.target.value)]);
+                        }}
+                        value={values[1].toFixed(0)}
+                        placeholder={"1000"}
+                        className="w-16 h-6 border-primary border-2 px-1 py-4 text-lg text-center focus:ring-primary focus:outline-primary ml-2"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
