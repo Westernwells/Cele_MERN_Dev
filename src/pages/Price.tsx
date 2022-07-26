@@ -35,12 +35,12 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
           </div>
         </div>
         {/* main area */}
-        <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center">
+        <div className="min-h-[calc(100vh-300px)] md:min-h-[calc(100vh-200px)] flex flex-col justify-center">
           {/* Content area */}
           <div className="px-4 md:px-[52px] w-full">
             {/* row 1 */}
             <div className="md:grid md:grid-cols-12 w-full mb-10 gap-6 ">
-              <div className="md:col-start-1 md:col-end-6 w-full">
+              <div className="md:col-start-1 md:col-end-8 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   What is the ideal price range?
                 </p>
@@ -132,7 +132,7 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                       </p>
                       <input
                         onChange={(e) => {
-                          setValues([values[1], Number(e.target.value)]);
+                          setValues([values[0], Number(e.target.value)]);
                         }}
                         value={values[1].toFixed(0)}
                         placeholder={"1000"}
@@ -154,9 +154,9 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
             // navigate("/", { replace: false });
           }}
         >
-          <div className="bg-primary w-[50%] py-4 pl-16 cursor-pointer hover:bg-green-600">
+          <div className="bg-primary w-[85%] md:w-[50%] py-4 pl-16 cursor-pointer hover:bg-green-600">
             <p className="text-white font-semibold text-[25px] leading-[29px]">
-              Review
+              Show Me Great Gifts
             </p>
           </div>
         </div>

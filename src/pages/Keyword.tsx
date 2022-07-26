@@ -95,7 +95,10 @@ const Keyword: React.FC = () => {
               <div className="md:col-start-1 md:col-end-6 w-full">
                 <p className="text-[25px] leading-[29px] font-semibold">
                   Which item would be <br />
-                  the best gift for your mom?
+                  the best gift for your{" "}
+                  <span className="lowercase">
+                    {state.formState.who ? state.formState.who : "mom"}?
+                  </span>
                 </p>
                 <div className="w-full mt-8  relative"></div>
               </div>

@@ -20,7 +20,7 @@ export default function FormNav() {
         location.pathname === "/keyword" ||
         location.pathname === "/occasion" ||
         location.pathname === "/price"
-          ? "Keyword"
+          ? "Interests"
           : "",
       step: "/keyword",
       disabled:
@@ -56,7 +56,7 @@ export default function FormNav() {
       disabled: false,
     },
     {
-      name: "Keyword",
+      name: "Interests",
       step: "/keyword",
       disabled:
         location.pathname === "/keyword" ||

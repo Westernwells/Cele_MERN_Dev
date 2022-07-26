@@ -31,6 +31,13 @@ const customStyles = {
     ...provided,
     display: "hidden",
   }),
+  control: (provided: any, state: any) => ({
+    ...provided,
+    // display: "hidden",
+    border: "solid 0 transparent",
+    borderRadius: "0",
+    borderBottom: "#52AA5E solid 2px",
+  }),
 };
 const OValue: IOptionFiled[] = [
   { value: "Birthday", label: "Birthday" },
@@ -139,7 +146,7 @@ const Occasion: React.FC = () => {
           </div>
         </div>
         {/* main */}
-        <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center">
+        <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex flex-col justify-center">
           {/* Content area */}
           <div className="px-[52px] w-full">
             {/* row 1 */}

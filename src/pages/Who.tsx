@@ -21,7 +21,7 @@ interface IOptionFiled {
   genderNeutrality: boolean;
   gender?: string;
 }
-interface IOptionFiled {
+interface IMonthFiled {
   value: string;
   label: string;
   // genderNeutrality: boolean;
@@ -31,6 +31,13 @@ const Who: React.FC = () => {
 
   const [disbleGender, setDisableGender] = useState(true);
   const [newState, setNewState] = useState<IOptionFiled | null>(null);
+  const [newMonthState, setNewMonthStateState] = useState<IMonthFiled | null>(
+    null
+  );
+  const [newDayState, setNewDayStateState] = useState<IMonthFiled | null>(null);
+  const [newYearState, setNewYearStateState] = useState<IMonthFiled | null>(
+    null
+  );
 
   useEffect(() => {
     if (state.formState.who) {
@@ -54,7 +61,30 @@ const Who: React.FC = () => {
         setDisableGender(false);
       }
     }
-  }, [state.formState.who]);
+    if (state.formState.month) {
+      setNewMonthStateState({
+        label: state.formState.month,
+        value: state.formState.month,
+      });
+    }
+    if (state.formState.day) {
+      setNewDayStateState({
+        label: state.formState.day,
+        value: state.formState.day,
+      });
+    }
+    if (state.formState.year) {
+      setNewYearStateState({
+        label: state.formState.year,
+        value: state.formState.year,
+      });
+    }
+  }, [
+    state.formState.who,
+    state.formState.month,
+    state.formState.day,
+    state.formState.year,
+  ]);
 
   const Months = [
     "Jan",
@@ -70,7 +100,7 @@ const Who: React.FC = () => {
     "Nov",
     "Dec",
   ];
-  const Whos = ["Father", "Mother", "Wife"];
+  const Whos = ["Son", "Daughter", "Friend"];
   const WhoOption: Array<IOptionFiled> = [
     { value: "Son", label: "Son", genderNeutrality: false, gender: "Male" },
     {
@@ -168,7 +198,15 @@ const Who: React.FC = () => {
       label: "Other",
       genderNeutrality: true,
     },
-  ];
+  ].sort(function (a, b) {
+    if (a.value > b.value) {
+      return 1;
+    }
+    if (b.value > a.value) {
+      return -1;
+    }
+    return 0;
+  });
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -204,11 +242,38 @@ const Who: React.FC = () => {
     indicatorsContainer: (provided: any, state: any) => ({
       ...provided,
       display: "hidden",
+      // borderBottom: "green solid 5px",
     }),
     indicatorSeparator: (provided: any, state: any) => ({
       ...provided,
       display: "hidden",
     }),
+
+    control: (provided: any, state: any) => ({
+      ...provided,
+      // display: "hidden",
+      border: "solid 0 transparent",
+      borderRadius: "0",
+      borderBottom: "#52AA5E solid 2px",
+    }),
+  };
+  const handleMonthChange = (e: ValueType<IMonthFiled>) => {
+    setState({
+      ...state,
+      formState: { ...state.formState, month: (e as IMonthFiled).value },
+    });
+  };
+  const handleDayChange = (e: ValueType<IMonthFiled>) => {
+    setState({
+      ...state,
+      formState: { ...state.formState, day: (e as IMonthFiled).value },
+    });
+  };
+  const handleYearChange = (e: ValueType<IMonthFiled>) => {
+    setState({
+      ...state,
+      formState: { ...state.formState, year: (e as IMonthFiled).value },
+    });
   };
   return (
     <div>
@@ -226,7 +291,7 @@ const Who: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center">
+        <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex flex-col justify-center">
           {/* Content area */}
           <div className="px-[26px] md:px-[52px] w-full">
             {/* row 1 */}
@@ -285,7 +350,7 @@ const Who: React.FC = () => {
                 <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
                   {/* month */}
                   <div className="w-full mt-3">
-                    <select
+                    {/* <select
                       id="month"
                       name="month"
                       value={state.formState.month}
@@ -298,11 +363,23 @@ const Who: React.FC = () => {
                       {Months.map((item, index) => (
                         <option key={index.toString()}>{item}</option>
                       ))}
-                    </select>
+                    </select> */}
+                    <Select<IMonthFiled>
+                      getOptionLabel={(option: IMonthFiled) => option.label}
+                      getOptionValue={(option: IMonthFiled) => option.value}
+                      value={newMonthState}
+                      styles={customStyles}
+                      placeholder={"Month"}
+                      options={Months.map((item) => ({
+                        value: item,
+                        label: item,
+                      }))}
+                      onChange={handleMonthChange}
+                    />
                   </div>
                   {/* day */}
                   <div className="w-full mt-3">
-                    <select
+                    {/* <select
                       id="day"
                       name="day"
                       value={state.formState.day}
@@ -315,11 +392,23 @@ const Who: React.FC = () => {
                       {new Array(31).fill("1").map((item, index) => (
                         <option key={index.toString()}>{index + 1}</option>
                       ))}
-                    </select>
+                    </select> */}
+                    <Select<IMonthFiled>
+                      getOptionLabel={(option: IMonthFiled) => option.label}
+                      getOptionValue={(option: IMonthFiled) => option.value}
+                      value={newDayState}
+                      styles={customStyles}
+                      placeholder={"Day"}
+                      options={new Array(31).fill("1").map((item, index) => ({
+                        value: String(index + 1),
+                        label: String(index + 1),
+                      }))}
+                      onChange={handleDayChange}
+                    />
                   </div>
                   {/* day */}
                   <div className="w-full mt-3 md:col-span-2">
-                    <select
+                    {/* <select
                       id="year"
                       name="year"
                       value={state.formState.year}
@@ -332,7 +421,19 @@ const Who: React.FC = () => {
                       {new Array(123).fill("1").map((item, index) => (
                         <option key={index.toString()}>{index + 1900}</option>
                       ))}
-                    </select>
+                    </select> */}
+                    <Select<IMonthFiled>
+                      getOptionLabel={(option: IMonthFiled) => option.label}
+                      getOptionValue={(option: IMonthFiled) => option.value}
+                      value={newYearState}
+                      styles={customStyles}
+                      placeholder={"Year"}
+                      options={new Array(123).fill("1").map((item, index) => ({
+                        value: String(index + 1900),
+                        label: String(index + 1900),
+                      }))}
+                      onChange={handleYearChange}
+                    />
                   </div>
                 </div>
               </div>
