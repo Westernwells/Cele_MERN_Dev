@@ -74,7 +74,7 @@ export default function FormNav() {
           : true,
     },
     {
-      name: "Budget",
+      name: "Price",
       step: "/price",
       disabled: location.pathname === "/price" ? false : true,
     },
