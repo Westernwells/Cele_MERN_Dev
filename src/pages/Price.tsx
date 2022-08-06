@@ -18,15 +18,26 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
   const [values, setValues] = React.useState([5, 1000]);
   let [isOpen, setIsOpen] = useState(false);
 
+  const goToProfilePage = () => {
+    setState({
+      ...state,
+      formState: {
+        ...state.formState,
+        isInitialOnboardingCompleted: true,
+      },
+    });
+    navigate("/profile", { replace: false });
+  };
+
   return (
     <div>
-      <LayoutForm>
+      <LayoutForm withFormNav>
         {/* Skip area */}
         <div className="flex  justify-end absolute w-full mt-12">
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
-              navigate("/", { replace: false });
+              navigate("/profile", { replace: false });
             }}
           >
             <p className="text-[20px] leading-[23px] font-normal group-hover:text-primary">
@@ -149,10 +160,7 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
         </div>
         <div
           className=" flex justify-end absolute bottom-0 w-full md:mb-[92px] "
-          onClick={() => {
-            setIsOpen(true);
-            // navigate("/", { replace: false });
-          }}
+          onClick={goToProfilePage}
         >
           <div className="bg-primary w-[85%] md:w-[50%] py-4 pl-16 cursor-pointer hover:bg-green-600">
             <p className="text-white font-semibold text-[25px] leading-[29px]">

@@ -58,25 +58,31 @@ export default function FormNav() {
     {
       name: "Interests",
       step: "/keyword",
-      disabled:
-        location.pathname === "/keyword" ||
-        location.pathname === "/occasion" ||
-        location.pathname === "/price"
-          ? false
-          : true,
+      disabled: state?.formState.isInitialOnboardingCompleted
+        ? false
+        : location.pathname === "/keyword" ||
+          location.pathname === "/occasion" ||
+          location.pathname === "/price"
+        ? false
+        : true,
     },
     {
       name: state?.formState.occasion ? state?.formState.occasion : "Occasion",
       step: "/occasion",
-      disabled:
-        location.pathname === "/occasion" || location.pathname === "/price"
-          ? false
-          : true,
+      disabled: state?.formState.isInitialOnboardingCompleted
+        ? false
+        : location.pathname === "/occasion" || location.pathname === "/price"
+        ? false
+        : true,
     },
     {
       name: "Price",
       step: "/price",
-      disabled: location.pathname === "/price" ? false : true,
+      disabled: state?.formState.isInitialOnboardingCompleted
+        ? false
+        : location.pathname === "/price"
+        ? false
+        : true,
     },
   ];
   return (

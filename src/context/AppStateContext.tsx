@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
+import { RatedItemType } from "../pages/Recommendations";
+import { OccasionAndDate } from "../pages/SavedProfile";
+import { ProductType } from "../Reducers/ProductReducer";
 
 export interface AppState {
   formState: IFormState;
+  collections: Array<ProductType>;
 }
 interface IFormState {
   who?: string;
@@ -11,7 +15,14 @@ interface IFormState {
   gender?: string;
   keywords?: string[];
   occasion?: string;
+  profileName?: string;
+  otherOccasion?: string;
+  otherOccasions: Array<OccasionAndDate>;
+  recommendedItems: Array<RatedItemType>;
   range: number[];
+  isProfileSaved: boolean;
+  isInitialOnboardingCompleted: boolean;
+  userEmail: string;
 }
 
 const appData: AppState = {
@@ -23,8 +34,16 @@ const appData: AppState = {
     gender: "",
     keywords: [],
     occasion: "",
+    recommendedItems: [],
     range: [5, 1000],
+    profileName: "",
+    otherOccasion: "",
+    otherOccasions: [{ occasion: "Select Occasion", date: null }],
+    isProfileSaved: false,
+    isInitialOnboardingCompleted: false,
+    userEmail: "",
   },
+  collections: [],
 };
 const AppStateContext = createContext<AppStateContextProps>(
   {} as AppStateContextProps

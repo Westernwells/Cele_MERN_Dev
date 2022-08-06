@@ -131,7 +131,7 @@ const Occasion: React.FC = () => {
   };
   return (
     <div>
-      <LayoutForm>
+      <LayoutForm withFormNav>
         {/* Skip area */}
         <div className="flex  justify-end absolute w-full mt-12">
           <div

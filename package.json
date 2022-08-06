@@ -15,14 +15,24 @@
     "@types/react-dom": "^18.0.0",
     "@types/react-select": "^5.0.1",
     "csstype": "^3.1.0",
+    "date-fns": "^2.29.1",
+    "json-server": "^0.17.0",
+    "moment": "^2.29.4",
     "nanoid": "^4.0.0",
     "react": "^18.1.0",
     "react-autocomplete": "^1.8.1",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.1.0",
     "react-range": "^1.8.13",
+    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
+    "react-slick": "^0.29.0",
+    "react-star-rating-component": "^1.4.1",
+    "react-stars": "^2.2.5",
+    "react-toastify": "^9.0.7",
+    "slick-carousel": "^1.8.1",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
@@ -51,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-datepicker": "^4.4.2",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.2"

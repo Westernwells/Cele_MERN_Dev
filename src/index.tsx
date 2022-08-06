@@ -4,15 +4,21 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppStateProvider } from "./context/AppStateContext";
+import "./slick/slick.css";
+import "./slick/slick-theme.css";
+import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <AppStateProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <App />
+    <ToastContainer />
+    {/* </React.StrictMode> */}
   </AppStateProvider>
 );
 
