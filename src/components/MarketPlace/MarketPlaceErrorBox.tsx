@@ -16,13 +16,13 @@ export default function MarketPlaceErrorBox({
         <p className="text-[18px] lg:text-[20px] font-medium leading-[23.48px] lg:leading-[23.48px] w-full lg:w-[409px] text-white">
           We are so sorry!
           <br />
-          Our system seems to be down
+          Our system is not providing the best gift options for you and we want
+          to recaliber
           <br />
-          <br /> As a new startup, we are still working out some kinks. However,
-          we are dedicated to finding you to right gift.
+          <br /> However, we are dedicated to finding you to right gift.
           <br />
-          <br /> Please enter your email to get notified of your personalized
-          gift recommendations
+          <br /> Please enter your email and we will notify you of personalized
+          gift recommendations once our system is back up and working.
         </p>
       </div>
       <div className="flex flex-col justify-center mt-6 lg:mt-0">

@@ -38,6 +38,8 @@ const customStyles = {
     borderRadius: "0",
     borderBottom: "white solid 2px",
     backgroundColor: "transparent",
+    marginBottom: "0px",
+    width: "inherit",
   }),
 };
 export type OccasionAndDate = {
@@ -194,11 +196,11 @@ export default function SavedProfile() {
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick }: any, ref: any) => (
       <div
-        className="bg-transparent text-white h-8 -py-1 mt-2 w-[100px] border-b-2 border-b-white"
+        className="bg-transparent text-white h-8   w-[120px] border-b-2 border-b-white "
         onClick={onClick}
         ref={ref}
       >
-        {value}
+        {value ? value : "Date"}
       </div>
     )
   );
@@ -207,7 +209,7 @@ export default function SavedProfile() {
     <div className="">
       <LayoutForm>
         <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex items-center w-full font-raleway">
-          <div className="ml-[28px] md:ml-[54px] bg-primary pl-[24px] md:pl-[89px] pt-[78px] pb-[48px] pr-[24px] md:pr-[29px] mt-[100px] mr-[28px] md:mr-0 w-full">
+          <div className="ml-[16px] md:ml-[54px] bg-primary pl-[24px] md:pl-[89px] pt-[78px] pb-[48px] pr-[24px] md:pr-[29px] mt-[100px] mr-[16px] md:mr-0 w-full">
             <div className="lg:grid grid-cols-12 lg:gap-8">
               <div className="lg:col-start-1 lg:col-end-5">
                 <p className="mb-[34px] md:mb-[68px] font-semibold text-[20px] leading-[23.48px] text-white w-[297px]">
@@ -216,18 +218,20 @@ export default function SavedProfile() {
                 <input
                   type="text"
                   className="min-w-[300px] border-0 border-b-2 border-b-white pb-2 bg-primary text-white placeholder:text-gray-200 outline-hidden ring-0 focus:border-b-white focus:outline-none"
-                  placeholder="Type profile name here"
+                  placeholder="Type name here (e.g. Mom)"
                   onChange={onProfileChange}
                   value={formState.formState.profileName}
                 />
               </div>
-              <div className="lg:col-start-5 lg:col-end-13 lg:mr-[123px] mt-16 lg:mt-0">
-                <p className="mb-[34px] lg:mb-[68px] font-semibold text-[20px] leading-[23.48px] text-white w-full  lg:w-[209px]">
-                  Add other occasions you may buy a gift for
+              <div className="lg:col-start-6 lg:col-end-13 lg:mr-[123px] mt-16 lg:mt-0">
+                <p className="mb-[34px] lg:mb-[68px] font-semibold text-[20px] leading-[23.48px] text-white w-full  lg:w-[327px] lg:ml-[50px]">
+                  Are there any other occasions when you buy your{" "}
+                  {formState.formState.who ? formState.formState.who : "Mother"}{" "}
+                  a gift?
                 </p>
                 <div className="w-full mt-3 flex items-end gap-2">
                   <div
-                    className="h-[23px] lg:h-[46px] w-[23px] lg:w-[46px] rounded-full border-white border-2 flex justify-center items-center text-white"
+                    className="h-[23px] lg:h-[46px] w-[23px] lg:w-[46px] rounded-full border-white border-2 flex justify-center items-center text-white lg:-mb-16"
                     onClick={addOccasionItem}
                   >
                     +
@@ -237,7 +241,7 @@ export default function SavedProfile() {
                       formState.formState.otherOccasions.map(
                         (item: OccasionAndDate, index: number) => (
                           <div
-                            className="w-full grid grid-cols-3 gap-2 items-end h-12"
+                            className="w-full flex lg:grid lg:grid-cols-3 gap-[20px] md:gap-[27px] lg:gap-[54px] items-end h-12 "
                             key={index}
                           >
                             <Select<IOptionField>
@@ -266,10 +270,10 @@ export default function SavedProfile() {
                               placeholder={"Type in to search the occasion"}
                               options={OptionFieldOptions}
                               onChange={(option) => handleChange(option, index)}
-                              className="col-start-1 col-end-3 w-full "
+                              className="lg:col-start-1 lg:col-end-3 w-[170px] md:[250px] lg:w-[300px] "
                             />
                             <DatePicker
-                              className="col-start-3 col-end-4 w-full "
+                              className="lg:col-start-3 lg:col-end-4 w-full "
                               selected={
                                 formState.formState.otherOccasions[index].date
                               }

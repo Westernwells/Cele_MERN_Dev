@@ -6,7 +6,7 @@ import loveimg from "../../Assets/love.png";
 import celeStar from "../../Assets/CeleStar.png";
 export default function Footer() {
   return (
-    <div className="bg-primary  font-raleway pt-[92px] pl-[60px] pr-[60px] md:pl-[131px] md:pr-[122px] pb-[81px]">
+    <div className="bg-primary  font-raleway pt-[92px] pl-[60px] pr-[60px] md:pl-[131px] md:pr-[122px] pb-[20px]">
       <div className="sm:flex justify-between mb-[90px]">
         <div className="">
           <a href="" className="mb-8 block text-white">
@@ -29,10 +29,9 @@ export default function Footer() {
         </div>
       </div>
       <hr className="h-0.5 bg-white mb-[30px]" />
-      <div className="md:flex justify-between">
+      <p className="text-white">Questions? Please ask: contact@cele-app.com</p>
+      <div className="md:flex justify-between items-end">
         <div className="text-white">
-          <p className="">Contact：@cele-app.com</p>
-          <p className="">Tele：123-456-7890</p>
           <p className="">
             Cele ® <br /> Copyright © 2022{" "}
           </p>
@@ -42,11 +41,6 @@ export default function Footer() {
             <p className="font-semibold text-[60px] leading-[70.44px] text-white">
               Cele
             </p>
-            <img
-              src={celeStar}
-              alt=""
-              className="absolute -top-6 mr-4 right-0 h-9 w-9"
-            />
           </span>
           <p className="font-inter text-white font-medium text-[20px] leading-[24.2px]">
             <span className="flex items-center">
@@ -54,6 +48,13 @@ export default function Footer() {
             </span>
           </p>
         </div>
+      </div>
+      <div className="flex justify-end mt-8">
+        <img
+          src={celeStar}
+          alt=""
+          className="relative bottom-0  right-0 h-9 w-9"
+        />
       </div>
     </div>
   );

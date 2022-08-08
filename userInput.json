@@ -1,0 +1,32 @@
+{
+  "who": "Boyfriend",
+  "month": "Mar",
+  "day": "3",
+  "year": "1904",
+  "gender": "Male",
+  "keywords": ["Headphones", "Movie", "Cloth", "Creame", "Food"],
+  "occasion": "Mother's Day",
+  "recommendedItems": [
+    { "product": "Red bag", "rated": true, "rating": 1 },
+    { "product": "Yellow Purse", "rated": false, "rating": 0 },
+    { "product": "Lebron Slippers", "rated": true, "rating": 2 },
+    { "product": "Red bag", "rated": false, "rating": 0 },
+    { "product": "Red bag", "rated": true, "rating": 2 },
+    { "product": "Red bag", "rated": false, "rating": 0 },
+    { "product": "Red bag", "rated": true, "rating": 2 },
+    { "product": "Red bag", "rated": false, "rating": 0 },
+    { "product": "Red bag", "rated": true, "rating": 2 },
+    { "product": "Red bag", "rated": true, "rating": 0 }
+  ],
+  "range": [275, 865],
+  "profileName": "Randy",
+  "otherOccasion": "",
+  "otherOccasions": [
+    { "occasion": "Anniversary", "date": "2022-07-31T23:00:00.000Z" },
+    { "occasion": "Baisakhi", "date": "2023-04-13T23:00:00.000Z" },
+    { "occasion": "Corporate Occasion", "date": "2022-08-22T23:00:00.000Z" }
+  ],
+  "isProfileSaved": true,
+  "isInitialOnboardingCompleted": true,
+  "userEmail": "Benjohn@gmail.com"
+}

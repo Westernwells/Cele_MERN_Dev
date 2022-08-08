@@ -104,6 +104,18 @@ export default function Marketplace() {
         },
       });
       // console.log("eebter key pressed", event.key);
+      // setAppState();
+      console.log(
+        "user data",
+        JSON.stringify({
+          // ...appState,
+          //  {
+          ...appState.formState,
+          userEmail: userEmail,
+          // },
+        })
+      );
+
       setUserEmail("");
       notify();
       // this.setState({ inputValue: event.target.value });
@@ -114,10 +126,41 @@ export default function Marketplace() {
       <LayoutForm>
         <div className="  w-full font-raleway">
           <div className="ml-[27px] md:ml-[54px] bg-white pl-[24px] md:pl-[89px] pt-[28px] pr-[29px] mt-[25px] w-full">
-            <div className="grid grid-cols-12 gap-8 md:justify-end">
-              {/* <div className="col-start-1 col-end-4 hidden md:block"></div> */}
-              <div className="col-start-1 col-end-7">
-                <p className="text-[18px] md:text-[25px] leading-[20px] md:leading-[29px] font-semibold">
+            <div className="flex flex-col sm:flex-row justify-end w-full items-center">
+              <div className="order-1 sm:order-0 flex justify-center mx-auto flex-1 w-full mt-4 sm:mt-0">
+                <p className="text-[18px] md:text-[25px] leading-[20px] md:leading-[29px] font-semibold text-center w-full">
+                  Gift for{" "}
+                  {appState.formState.profileName
+                    ? `${appState.formState.profileName}'s`
+                    : appState.formState.who
+                    ? `${appState.formState.who}'s`
+                    : "Mother's"}{" "}
+                  {appState.formState.occasion
+                    ? appState.formState.occasion
+                    : "Mother's Day"}
+                </p>
+              </div>
+              <div className="order-0 sm:order-1 flex justify-end sm:w-[295px]">
+                {appState.formState.isProfileSaved ? (
+                  <button className="text-left text-xs md:text-base font-semibold text-white bg-primary leading-[18.78px] sm:w-[295px] pt-5 pb-5 pl-2 md:pl-7 flex items-center gap-2 md:gap-5 ">
+                    <img src={AddUserIcon} alt="" className="" /> See{" "}
+                    {appState.formState.profileName}'s Stash
+                  </button>
+                ) : (
+                  <button
+                    className="text-left text-xs md:text-base font-semibold text-white bg-primary leading-[18.78px] sm:w-[295px] pt-5 pb-5 pl-2 md:pl-7 flex items-center gap-2 md:gap-5"
+                    onClick={() => navigate("/profile", { replace: false })}
+                  >
+                    <img src={AddUserIcon} alt="" className="" /> Save this
+                    Profile
+                  </button>
+                )}
+              </div>
+            </div>
+            {/* <div className="grid grid-cols-12 gap-8 md:justify-end">
+           
+              <div className="col-start-1 col-end-9 lg:col-start-1 lg:col-end-9 flex justify-center mx-auto">
+                <p className="text-[18px] md:text-[25px] leading-[20px] md:leading-[29px] font-semibold text-center">
                   Gift for{" "}
                   {appState.formState.profileName
                     ? appState.formState.profileName
@@ -128,7 +171,7 @@ export default function Marketplace() {
                     : "Mother's Day"}
                 </p>
               </div>
-              <div className="col-start-7 col-end-13 w-full flex justify-end ">
+              <div className="col-start-9 col-end-13 w-full flex justify-end ">
                 {appState.formState.isProfileSaved ? (
                   <button className="text-left text-xs md:text-base font-semibold text-white bg-primary leading-[18.78px] w-[295px] pt-5 pb-5 pl-2 md:pl-7 flex items-center gap-2 md:gap-5 ">
                     <img src={AddUserIcon} alt="" className="" /> See{" "}
@@ -144,17 +187,17 @@ export default function Marketplace() {
                   </button>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="sm:ml-[27px] lg:ml-[34px] xl:ml-[54px] bg-white  pt-[78px]  mt-[100px] w-full border-t-2 border-l-2 border-t-primary border-l-primary pb-12  ">
-            <div className="w-full flex justify-between px-4">
-              <div className="flex gap-2 items-center w-full">
+            <div className="w-full flex justify-between  mb-[45px]   pl-[24px] lg:pl-[54px] xl:pl-[89px] pr-[24px] lg:pr-[54px] xl:pr-[114px]">
+              <div className="flex gap-2 items-center w-full ml-6">
                 <MarketPlaceEditDropDown />
                 {/* <div className="flex items-center gap-2 relative"></div> */}
               </div>
-              <div className="flex gap-2 items-center justify-end mr-12 xl:mr-16 ">
+              <div className="flex gap-2 items-center justify-end mr-8 xl:mr-12 w-full ">
                 <img src={Heart} alt="" className="w-[16.07px] h-[15px]" />
-                <p className="">Stash</p>
+                <p className="">Stash It</p>
               </div>
             </div>
             <div className=" mx-auto xs:mx-0 xs:grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  mb-[45px]  gap-4 justify-between pl-[24px] lg:pl-[54px] xl:pl-[89px] pr-[24px] lg:pr-[54px] xl:pr-[114px] ">

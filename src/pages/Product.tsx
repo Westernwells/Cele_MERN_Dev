@@ -133,7 +133,7 @@ export default function Product() {
                   </div>
                 )}
                 <a
-                  className="bg-primary leading-[16.44px] text-[14px] text-white font-medium px-[14.5px] py-[13px]"
+                  className="bg-primary leading-[16.44px] text-[14px] text-white font-medium px-[14.5px] py-[13px] uppercase"
                   href={product?.vendorUrl}
                   target="_blank"
                   rel="noreferrer"

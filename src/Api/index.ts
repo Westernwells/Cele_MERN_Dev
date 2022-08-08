@@ -7,7 +7,7 @@ export const fetchProductById = (id: string) => {
     if (result !== undefined) {
       resolve(result);
     } else {
-      reject("erro finding product");
+      reject("error finding product");
     }
   });
 };
@@ -17,10 +17,7 @@ export const fetchAllProducts = () => {
     try {
       resolve(ProductsList);
     } catch (error) {
-      reject("erro finding product");
+      reject("error finding product");
     }
   });
 };
-
-console.log(fetchProductById("1"));
-console.log("Hello world");

@@ -48,11 +48,23 @@ export default function Recommendations() {
         ...recs,
         { product: item.productName, rated: true, rating: newRating },
       ]);
+      setAppState({
+        ...appState,
+        formState: {
+          ...appState.formState,
+          recommendedItems: [
+            ...recommendations,
+            { product: item.productName, rated: true, rating: newRating },
+          ],
+        },
+      });
+      console.log("user data", JSON.stringify(appState.formState));
+
       alert("this is the last item on the list");
-      console.log("recomendations", [
-        ...recommendations,
-        { product: item.productName, rated: true, rating: newRating },
-      ]);
+      // console.log("recomendations", [
+      //   ...recommendations,
+      //   { product: item.productName, rated: true, rating: newRating },
+      // ]);
       navigate("/market", { replace: false });
     } else {
       alert("No more item on the list");
@@ -75,12 +87,19 @@ export default function Recommendations() {
         ...recs,
         { product: item.productName, rated: false, rating: 0 },
       ]);
+      setAppState({
+        ...appState,
+        formState: {
+          ...appState.formState,
+          recommendedItems: [
+            ...recommendations,
+            { product: item.productName, rated: true, rating: 0 },
+          ],
+        },
+      });
       navigate("/market", { replace: false });
+      console.log("user data", JSON.stringify(appState.formState));
 
-      console.log("recomendations", [
-        ...recommendations,
-        { product: item.productName, rated: false, rating: 0 },
-      ]);
       alert("this is the last item on the list");
       navigate("/market", { replace: false });
     } else {
@@ -137,20 +156,20 @@ export default function Recommendations() {
                     <div className="md:hidden block">
                       <ReactStars
                         key={starsKey}
-                        count={5}
+                        count={4}
                         onChange={ratingChanged}
                         size={25}
-                        color2={"#ffd700"}
+                        activeColor={"#52AA5E"}
                         value={state.rating}
                       />
                     </div>
                     <div className="hidden md:block">
                       <ReactStars
                         key={starsKey}
-                        count={5}
+                        count={4}
                         onChange={ratingChanged}
                         size={50}
-                        color2={"#ffd700"}
+                        activeColor={"#52AA5E"}
                         value={state.rating}
                       />
                     </div>
@@ -274,7 +293,7 @@ const ProductCard = ({ data }: ProductCardtype) => {
             {data.productName}
           </p>
           <p className="font-semibold text-[25px] leading-[29.35px]">
-            {data.price}
+            ${data.price}
           </p>
         </div>
         <p className="font-normal text-[16px] leading-[18.78px] mb-4">
