@@ -14,7 +14,6 @@ export type ValueType<OptionType> =
   | null
   | undefined;
 
-const Occasions = ["Birthday", "Mother's Day", "Anniversary"];
 const customStyles = {
   indicatorsContainer: (provided: any, state: any) => ({
     ...provided,
@@ -84,7 +83,6 @@ export default function SavedProfile() {
     });
   };
   const onProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // setNewState({ value: e, label: e });
     setFormState({
       ...formState,
       formState: {
@@ -129,10 +127,9 @@ export default function SavedProfile() {
       typeof selOccasion?.dates !== "undefined" &&
       selOccasion.dates?.length > 0
     ) {
-      setStartDate(dateSelected(selOccasion?.dates));
+      // setStartDate(dateSelected(selOccasion?.dates));
       setSelectedDate(dateSelected(selOccasion?.dates), index);
     } else {
-      console.log("Occasion selected odes not have date");
       setSelectedDate(null, index);
     }
   };
@@ -141,13 +138,10 @@ export default function SavedProfile() {
     dates.forEach((date) => {
       const DateX = moment(date, "DD-MM-YYYY hh:mm:ss").format("X");
       const DateY = moment(Date.now()).format("X");
-
-      console.log(DateX, DateY);
       if (DateX >= DateY) {
         const DateZ = moment(date, "DD-MM-YYYY hh:mm:ss").toISOString();
         selectedDate.push(new Date(DateZ));
       }
-      // const NowDate = moment().format("X");
     });
     return selectedDate[0] ? selectedDate[0] : Date.now();
   };
@@ -166,11 +160,8 @@ export default function SavedProfile() {
   };
 
   const setSelectedDate = (date: Date | null | undefined, index: number) => {
-    // let newModOccasions = otherOccasions;
     let newModOccasions = formState.formState.otherOccasions;
-
     newModOccasions[index].date = date;
-    // setOtherOccasions([...newModOccasions]);
     setFormState({
       ...formState,
       formState: {
@@ -183,8 +174,6 @@ export default function SavedProfile() {
   const setSelectedOccasion = (occasion: string, index: number) => {
     let newModOccasions = formState.formState.otherOccasions;
     newModOccasions[index].occasion = occasion;
-    // setOtherOccasions([...newModOccasions]);
-
     setFormState({
       ...formState,
       formState: {
@@ -294,7 +283,11 @@ export default function SavedProfile() {
                 className="w-[312px] h-[42px] bg-white text-primary text-center order-1 lg:order-0 mx-auto lg:mx-0"
                 onClick={() => {
                   saveProfile();
-                  navigate("/rec", { replace: false });
+                  if (formState.formState.isInitialOnboardingCompleted) {
+                    navigate("/market", { replace: false });
+                  } else {
+                    navigate("/rec", { replace: false });
+                  }
                 }}
               >
                 See{" "}
@@ -303,7 +296,13 @@ export default function SavedProfile() {
               </button>
               <button
                 className="w-[312px] h-[42px] bg-white text-primary text-center order-0 lg:order-1 mx-auto lg:mx-0"
-                onClick={() => navigate("/rec", { replace: false })}
+                onClick={() => {
+                  if (formState.formState.isInitialOnboardingCompleted) {
+                    navigate("/market", { replace: false });
+                  } else {
+                    navigate("/rec", { replace: false });
+                  }
+                }}
               >
                 Skip
               </button>

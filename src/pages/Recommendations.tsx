@@ -1,24 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
-import RecImage from "../Assets/RecImage.png";
 import ReactStars from "react-rating-stars-component";
-import StarRatingComponent from "react-star-rating-component";
-import { StarIcon as StarIconSolid } from "@heroicons/react/solid";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchAllProducts } from "../Api";
 import { ProductType } from "../Reducers/ProductReducer";
 import { useAppState } from "../context/AppStateContext";
 
-type RevItemType = {
-  price: string;
-  product: string;
-  vendor: string;
-  link: string;
-  productName: string;
-  description: string;
-  images: Array<string>;
-  id: string;
-};
 export type RatedItemType = {
   product: string;
   rated: boolean;
@@ -31,7 +18,6 @@ export default function Recommendations() {
   const [state, setState] = useState({ rating: 3 });
   const [revIndex, setRevIndex] = useState(0);
   const [products, setProducts] = useState<ProductType[]>([]);
-  const textInput = useRef<HTMLInputElement>(null);
   const [starsKey, setStarsKey] = useState(Math.random());
   const ratingChanged = (newRating: number) => {
     if (revIndex < 9) {
@@ -58,13 +44,7 @@ export default function Recommendations() {
           ],
         },
       });
-      console.log("user data", JSON.stringify(appState.formState));
-
       alert("this is the last item on the list");
-      // console.log("recomendations", [
-      //   ...recommendations,
-      //   { product: item.productName, rated: true, rating: newRating },
-      // ]);
       navigate("/market", { replace: false });
     } else {
       alert("No more item on the list");
@@ -98,21 +78,18 @@ export default function Recommendations() {
         },
       });
       navigate("/market", { replace: false });
-      console.log("user data", JSON.stringify(appState.formState));
-
       alert("this is the last item on the list");
       navigate("/market", { replace: false });
     } else {
       alert("No more item on the list");
     }
   };
-  let ratings: Array<number> = [];
+
   useEffect(() => {
     setTimeout(() => {
       setStarsKey(Math.random());
     }, 400);
     setState({ rating: 0 });
-    // console.log("revindex", revIndex);
   }, [revIndex]);
   useEffect(() => {
     const goFetchAllProducts = async () => {
@@ -123,23 +100,23 @@ export default function Recommendations() {
   }, []);
 
   return (
-    <div className="">
+    <div className="overflow-x-hidden">
       <LayoutForm>
-        <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex items-center w-full font-raleway">
-          <div className="ml-0 lg:ml-[54px] bg-white pl-[23px] lg:pl-[89px] pt-[78px] pb-[48px] pr-[29px] mt-[50px] lg:mt-[100px] w-full">
+        <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex items-center w-full font-raleway overflow-x-hidden">
+          <div className="ml-0 lg:ml-[32px] xl:ml-[54px] bg-white pl-[23px]  xl:pl-[89px] pt-[78px] pb-[48px] pr-[29px] mt-[50px] xl:mt-[50px] lg:mt-[100px] w-full">
             {products.length > 0 && (
               <div className="lg:grid lg:grid-cols-12 gap-8">
-                <div className="col-start-1 col-end-7">
+                <div className="w-full sm:w-[75%] md:w-full  mx-auto lg:col-start-1 lg:col-end-7 xl:col-start-1 xl:col-end-7">
                   <ProductCard data={products[revIndex]} />
                 </div>
-                <div className="col-start-7 col-end-13 mt-8 lg:mt-0 lg:mr-[123px]">
-                  <p className="font-semibold text-[20px]  lg:text-[28px] leading-[26px] lg:leading-[32.87px] w-full lg:w-[448px]">
+                <div className="lg:col-start-7 lg:col-end-13 xl:col-start-7 xl:col-end-13 mt-8 lg:mt-0 xl:mr-[123px]">
+                  <p className="font-semibold text-[20px] text-center lg:text-left  lg:text-[28px] leading-[26px] lg:leading-[32.87px] w-full lg:w-[448px]">
                     Please rate how this gift matches your{" "}
                     {appState.formState.who
                       ? appState.formState.who
                       : "** Mother **"}
                   </p>
-                  <div className="flex gap-1 lg:gap-4 mt-4 lg:mt-16 items-center lg:items-start justify-center lg:justify-start">
+                  <div className="flex gap-1 lg:gap-4 mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start">
                     <div
                       // className="h-[32px] w-[32px] lg:h-[64px] md:w-[64px] "
                       onClick={cancle}
@@ -153,26 +130,31 @@ export default function Recommendations() {
                         // onClick={cancle}
                       />
                     </div>
-                    <div className="md:hidden block">
+                    <div className="lg:hidden block">
                       <ReactStars
                         key={starsKey}
                         count={4}
                         onChange={ratingChanged}
-                        size={25}
+                        size={43}
                         activeColor={"#52AA5E"}
                         value={state.rating}
                       />
                     </div>
-                    <div className="hidden md:block">
+                    <div className="hidden lg:block">
                       <ReactStars
                         key={starsKey}
                         count={4}
                         onChange={ratingChanged}
-                        size={50}
+                        size={65}
                         activeColor={"#52AA5E"}
                         value={state.rating}
+                        fullIcon={<i className="fa fa-star  bg-red-500"></i>}
                       />
                     </div>
+                  </div>
+                  <div className="flex flex-col justify-end text-right mt-12">
+                    <p className="text-[#DB0000]">X = I Would Never Buy This</p>
+                    <p className="text-[#52AA5E]">4 Stars = Great Gift</p>
                   </div>
                 </div>
               </div>
@@ -184,50 +166,7 @@ export default function Recommendations() {
   );
 }
 
-const StarIcon = () => {
-  return (
-    <div className="">
-      <svg
-        className="text-primary hover:fill-current hover:text-primary"
-        width="65"
-        height="65"
-        viewBox="0 0 65 65"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M63 24.875H50.9092L59.4567 16.3237L48.6763 5.53951L40.125 14.0908V2H24.875V14.0908L16.3237 5.53951L5.53951 16.3237L14.0908 24.875H2V40.125H14.0908L5.53951 48.6763L16.3237 59.4567L24.875 50.9092V63H40.125V50.9092L48.6763 59.4567L59.4567 48.6763L50.9092 40.125H63V24.875Z"
-          stroke="#52AA5E"
-          strokeWidth="3"
-          strokeMiterlimit="10"
-        />
-      </svg>
-    </div>
-  );
-};
 const defaultElement = "svg";
-
-function StarFilledIcon<K extends React.ElementType = typeof defaultElement>(
-  props: React.ComponentProps<K>
-) {
-  return (
-    <svg
-      {...props}
-      width="65"
-      height="65"
-      viewBox="0 0 65 65"
-      fill="#52AA5E"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M63 24.875H50.9092L59.4567 16.3237L48.6763 5.53951L40.125 14.0908V2H24.875V14.0908L16.3237 5.53951L5.53951 16.3237L14.0908 24.875H2V40.125H14.0908L5.53951 48.6763L16.3237 59.4567L24.875 50.9092V63H40.125V50.9092L48.6763 59.4567L59.4567 48.6763L50.9092 40.125H63V24.875Z"
-        stroke="#52AA5E"
-        strokeWidth="3"
-        strokeMiterlimit="10"
-      />
-    </svg>
-  );
-}
 
 function CrossIcon<K extends React.ElementType = typeof defaultElement>(
   props: React.ComponentProps<K>
@@ -286,7 +225,7 @@ const ProductCard = ({ data }: ProductCardtype) => {
   const navigate = useNavigate();
 
   return (
-    <div className="prod-container border-primary border-2 rounded-[20px] md:min-h-[471px] pl-[24px] md:pl-[34px] pr-[24px] md:pr-[54px] pt-[39px] pb-[18px]">
+    <div className="prod-container border-primary border-2 rounded-[20px] md:min-h-[471px] pl-[24px] md:pl-[34px] pr-[24px] md:pr-[54px] pt-[39px] pb-[18px] lg:w-full relative">
       <div className="">
         <div className="flex justify-between mb-4">
           <p className="font-semibold text-[20px] leading-[23.48px] ">
@@ -303,19 +242,23 @@ const ProductCard = ({ data }: ProductCardtype) => {
       </div>
       {/* product iamge */}
       <div className="mx-auto w-full flex justify-center my-[32px] md:my-[68px] relative">
-        <img src={data.images[1]} alt="" className="h-[222px] w-[302px]" />
-        <div className="flex justify-end w-full absolute bottom-0 mr-7 md:mr-0 mb-2 md:mb-0">
-          <button className="w-[50px] md:w-[101px] h-[50px] md:h-[101px]  rounded-full bg-primary text-white font-semibold text-xs md:text-base leading-[18.78px] py-2 md:px-[25px]">
-            <span
-              className="w-[52px]"
-              onClick={() =>
-                navigate(`/product/${data.id}`, { replace: false })
-              }
-            >
-              Buy Now
-            </span>
-          </button>
-        </div>
+        {/* <div className="relative h-[222px] w-[302px]"> */}
+        <img
+          src={data.images[1]}
+          alt=""
+          className="h-[182px] w-[262px] md:h-[222px] md:w-[302px]"
+        />
+        {/* </div> */}
+      </div>
+      <div className="flex justify-end w-full absolute bottom-1 mr-3 sm:mr-4 md:mr-2 right-2 lg:right-1 mb-2 md:mb-0 lg:pr-2">
+        <button className="w-[50px] lg:w-[101px] h-[50px] lg:h-[101px]  rounded-full bg-primary text-white font-semibold text-xs lg:text-base leading-[18.78px] py-2 lg:px-[25px]">
+          <span
+            className="w-[40px] lg:w-[52px]"
+            onClick={() => navigate(`/product/${data.id}`, { replace: false })}
+          >
+            Buy Now
+          </span>
+        </button>
       </div>
       {/* buy action */}
     </div>

@@ -16,8 +16,12 @@ const ProductImageCarousel = ({
   const settings = {
     customPaging: function (i: any) {
       return (
-        <a className="h-[86px] w-[86px] mx-auto">
-          <img className="h-[86px] w-[86px]" src={productImages[i]} />
+        <a className="h-[100px] w-[100px] mx-auto">
+          <img
+            className="h-[100px] w-[100px]"
+            alt="mini product"
+            src={productImages[i]}
+          />
         </a>
       );
     },
@@ -30,12 +34,16 @@ const ProductImageCarousel = ({
     //   className:"redmond"
   };
   return (
-    <div className="md:max-w-[400px]">
+    <div className="w-[80%] md:w-[400px] xl:w-full">
       {/* <h2>Custom Paging</h2> */}
       <Slider {...settings}>
         {productImages.map((product, index) => (
           <div key={index} className="grid grid-cols-3">
-            <img src={product} className="h-[357px] w-[396px]" />
+            <img
+              src={product}
+              alt="Product"
+              className="h-[357px] w-[396px] xl:h-auto xl:w-full"
+            />
           </div>
         ))}
       </Slider>

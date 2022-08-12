@@ -1,7 +1,7 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutForm from "../components/layout/LayoutForm";
 import { useNavigate } from "react-router-dom";
-import Select, { GroupBase } from "react-select";
+import Select from "react-select";
 import { useAppState } from "../context/AppStateContext";
 export type OptionsType<OptionType> = OptionType[];
 

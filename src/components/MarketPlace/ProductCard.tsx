@@ -17,18 +17,18 @@ export default function ProductCard({
   const navigate = useNavigate();
   return (
     <div
-      className="w-[250px] xs:w-[212px] md:min-w-[230px] xl:min-w-[270px] shadow-md align-middle mx-auto hover:cursor-pointer my-4"
+      className="w-[250px] xs:w-[212px] md:min-w-[200px] xl:min-w-[270px] shadow-md align-middle mx-auto hover:cursor-pointer my-4"
       onClick={() => navigate(`/product/${data.id}`, { replace: false })}
     >
-      <div className="img-container relative w-[250px] xs:w-[212px] md:min-w-[230px] xl:min-w-[270px]">
+      <div className="img-container relative w-[250px] xs:w-[212px] md:min-w-[200px] xl:min-w-[270px]">
         <img
           src={RecImage}
           alt=""
-          className="w-[250px] xs:w-[212px] xs:h-[212px] md:min-w-[230px] xl:min-w-[270px]"
+          className="w-[250px] xs:w-[212px] xs:h-[212px] md:min-w-[200px] xl:min-w-[270px]"
         />
         {collected ? (
           <div
-            className="absolute  top-0 right-0 bg-primary h-[30px] w-[30px] flex justify-center items-center rounded-full fill-white hover:bg-white hover:fill-black"
+            className="absolute  top-1 right-1 bg-primary h-[35px] w-[35px] flex justify-center items-center rounded-full fill-white hover:bg-white hover:fill-black"
             onClick={(e) => {
               toggle(data);
               e.stopPropagation();
@@ -38,7 +38,7 @@ export default function ProductCard({
           </div>
         ) : (
           <div
-            className="absolute  top-0 right-0 bg-white h-[30px] w-[30px] flex justify-center items-center rounded-full fill-black hover:bg-primary hover:fill-white"
+            className="absolute  top-1 right-1 bg-white h-[35px] w-[35px] flex justify-center items-center rounded-full fill-black hover:bg-primary hover:fill-white"
             onClick={(e) => {
               toggle(data);
               e.stopPropagation();

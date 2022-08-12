@@ -122,13 +122,11 @@ export const removeCollection = (
 export const UserReducer = (state: UserStateType, action: ProductActions) => {
   switch (action.type) {
     case ADD_COLLECTION:
-      console.log("user collection", action.payload.product);
       return {
         collections: [...state.collections, action.payload.product],
         loading: false,
       };
     case REMOVE_COLLECTION:
-      console.log("user collection", action.payload.product);
       let filteredProduct = state.collections.filter(
         (item) => item.id !== action.payload.product.id
       );
@@ -137,7 +135,6 @@ export const UserReducer = (state: UserStateType, action: ProductActions) => {
         loading: false,
       };
     default:
-      console.log("hello world");
       return {
         collections: [],
         loading: false,

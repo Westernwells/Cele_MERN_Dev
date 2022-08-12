@@ -6,7 +6,11 @@ export default function Navbar() {
       {/* left sside */}
       <div className="flex gap-6">
         <div className="absolute w-[144px] h-[93px] md:w-[164px] md:h-[113px]">
-          <img src={SiteLogo} alt="" className="w-[144px] h-[93px]  md:w-[164px] md:h-[113px]" />
+          <img
+            src={SiteLogo}
+            alt=""
+            className="w-[144px] h-[93px]  md:w-[164px] md:h-[113px]"
+          />
         </div>
         <div className="flex gap-6 md:block ml-[124px] md:ml-[164px] items-center">
           <a
@@ -15,14 +19,20 @@ export default function Navbar() {
           >
             About
           </a>
-          <a href="" className="text-[12px] leading-[15px] md:text-[16px] md:leading-[19px] font-semibold">
+          <a
+            href=""
+            className="text-[12px] leading-[15px] md:text-[16px] md:leading-[19px] font-semibold"
+          >
             FAQ
           </a>
         </div>
       </div>
       {/* right */}
       <div className="">
-        <a href="" className="text-[12px] leading-[15px] md:text-[16px] md:leading-[19px] font-semibold">
+        <a
+          href=""
+          className="text-[12px] leading-[15px] md:text-[16px] md:leading-[19px] font-semibold"
+        >
           Login/Signup
         </a>
       </div>

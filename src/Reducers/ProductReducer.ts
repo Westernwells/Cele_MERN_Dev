@@ -143,7 +143,6 @@ export const ProductsReducer = (
         errorState: [],
       };
     default:
-      console.log("hello world");
       return {
         products: [],
         loading: false,

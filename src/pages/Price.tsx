@@ -26,7 +26,11 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
         isInitialOnboardingCompleted: true,
       },
     });
-    navigate("/profile", { replace: false });
+    if (state.formState.isInitialOnboardingCompleted) {
+      navigate("/market", { replace: false });
+    } else {
+      navigate("/profile", { replace: false });
+    }
   };
 
   return (
@@ -37,6 +41,10 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
           <div
             className="group w-[117px] pb-1 border-b-2 border-b-black hover:border-b-primary cursor-pointer"
             onClick={() => {
+              if (state.formState.isInitialOnboardingCompleted) {
+                navigate("/market", { replace: false });
+              } else {
+              }
               navigate("/profile", { replace: false });
             }}
           >
