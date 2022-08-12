@@ -3,7 +3,12 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 
-export default function MarketPlaceEditDropDown() {
+type MarketPlaceEditDropDownProps = {
+  editAction: (link: string) => void;
+};
+export default function MarketPlaceEditDropDown({
+  editAction,
+}: MarketPlaceEditDropDownProps) {
   const navigate = useNavigate();
   return (
     <div className="text-center z-50">
@@ -38,7 +43,7 @@ export default function MarketPlaceEditDropDown() {
                     className={`${
                       active ? "bg-primary text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={() => navigate("/", { replace: false })}
+                    onClick={() => editAction("/")}
                   >
                     1. Who?
                   </button>
@@ -50,7 +55,8 @@ export default function MarketPlaceEditDropDown() {
                     className={`${
                       active ? "bg-primary text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={() => navigate("/keyword", { replace: false })}
+                    // onClick={() => navigate("/keyword", { replace: false })}
+                    onClick={() => editAction("keyword")}
                   >
                     2. Interests
                   </button>
@@ -64,7 +70,8 @@ export default function MarketPlaceEditDropDown() {
                     className={`${
                       active ? "bg-primary text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={() => navigate("/occasion", { replace: false })}
+                    // onClick={() => navigate("/occasion", { replace: false })}
+                    onClick={() => editAction("occasion")}
                   >
                     3. Occasion
                   </button>
@@ -76,7 +83,8 @@ export default function MarketPlaceEditDropDown() {
                     className={`${
                       active ? "bg-primary text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={() => navigate("/price", { replace: false })}
+                    // onClick={() => navigate("/price", { replace: false })}
+                    onClick={() => editAction("price")}
                   >
                     4. Price
                   </button>

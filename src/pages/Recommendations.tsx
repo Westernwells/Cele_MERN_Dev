@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAllProducts } from "../Api";
 import { ProductType } from "../Reducers/ProductReducer";
 import { useAppState } from "../context/AppStateContext";
+import Navbar from "../components/layout/Navbar";
 
 export type RatedItemType = {
   product: string;
@@ -79,7 +80,7 @@ export default function Recommendations() {
       });
       navigate("/market", { replace: false });
       alert("this is the last item on the list");
-      navigate("/market", { replace: false });
+      // navigate("/market", { replace: false });
     } else {
       alert("No more item on the list");
     }
@@ -92,6 +93,9 @@ export default function Recommendations() {
     setState({ rating: 0 });
   }, [revIndex]);
   useEffect(() => {
+    if (appState.formState.isEditing) navigate("/market");
+  }, []);
+  useEffect(() => {
     const goFetchAllProducts = async () => {
       let data = await fetchAllProducts();
       setProducts((data as Array<ProductType>).slice(0, 10));
@@ -100,68 +104,67 @@ export default function Recommendations() {
   }, []);
 
   return (
-    <div className="overflow-x-hidden">
-      <LayoutForm>
-        <div className="min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-200px)] flex items-center w-full font-raleway overflow-x-hidden">
-          <div className="ml-0 lg:ml-[32px] xl:ml-[54px] bg-white pl-[23px]  xl:pl-[89px] pt-[78px] pb-[48px] pr-[29px] mt-[50px] xl:mt-[50px] lg:mt-[100px] w-full">
-            {products.length > 0 && (
-              <div className="lg:grid lg:grid-cols-12 gap-8">
-                <div className="w-full sm:w-[75%] md:w-full  mx-auto lg:col-start-1 lg:col-end-7 xl:col-start-1 xl:col-end-7">
-                  <ProductCard data={products[revIndex]} />
+    <div className="overflow-x-hidden min-h-screen overflow-y-hidden flex flex-col">
+      <Navbar />
+      {/* <LayoutForm> */}
+      <div className=" h-full flex items-center w-full font-raleway overflow-x-hidden flex-1 overflow-y-hidden">
+        <div className="ml-0 lg:ml-[32px] xl:ml-[54px] bg-white pl-[23px]  xl:pl-[89px]  pb-[48px] pr-[29px] mt-[50px] xl:mt-[50px] lg:mt-[100px] w-full h-full">
+          {products.length > 0 && (
+            <div className="lg:grid lg:grid-cols-12 gap-8 flex-1">
+              <div className="w-full sm:w-[75%] md:w-full  mx-auto lg:col-start-1 lg:col-end-7 xl:col-start-1 xl:col-end-7 h-[50%] lg:h-auto">
+                <ProductCard data={products[revIndex]} />
+              </div>
+              <div className="lg:col-start-7 lg:col-end-13 xl:col-start-7 xl:col-end-13 mt-8 lg:mt-0 xl:mr-[123px] h-[50%]">
+                <p className="font-semibold text-[20px] text-center lg:text-left  lg:text-[28px] leading-[26px] lg:leading-[32.87px] w-full lg:w-[448px]">
+                  Please rate how this gift matches your{" "}
+                  {appState.formState.who ? appState.formState.who : "Unknown"}
+                </p>
+                <div className="flex mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start">
+                  <div
+                    // className="h-[32px] w-[32px] lg:h-[64px] md:w-[64px] "
+                    onClick={cancle}
+                  >
+                    <CrossIcon
+                      className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px]  "
+                      // onClick={cancle}
+                    />
+                    <CrossSmallIcon
+                      className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px] lg:hidden block"
+                      // onClick={cancle}
+                    />
+                  </div>
+                  <div className="lg:hidden block ml-[10px]">
+                    <ReactStars
+                      key={starsKey}
+                      count={4}
+                      onChange={ratingChanged}
+                      size={43}
+                      activeColor={"#52AA5E"}
+                      value={state.rating}
+                    />
+                  </div>
+                  <div className="hidden lg:block ml-[20px]">
+                    <ReactStars
+                      key={starsKey}
+                      count={4}
+                      onChange={ratingChanged}
+                      size={65}
+                      activeColor={"#52AA5E"}
+                      value={state.rating}
+                      fullIcon={<i className="fa fa-star  bg-red-500"></i>}
+                    />
+                  </div>
                 </div>
-                <div className="lg:col-start-7 lg:col-end-13 xl:col-start-7 xl:col-end-13 mt-8 lg:mt-0 xl:mr-[123px]">
-                  <p className="font-semibold text-[20px] text-center lg:text-left  lg:text-[28px] leading-[26px] lg:leading-[32.87px] w-full lg:w-[448px]">
-                    Please rate how this gift matches your{" "}
-                    {appState.formState.who
-                      ? appState.formState.who
-                      : "** Mother **"}
-                  </p>
-                  <div className="flex gap-1 lg:gap-4 mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start">
-                    <div
-                      // className="h-[32px] w-[32px] lg:h-[64px] md:w-[64px] "
-                      onClick={cancle}
-                    >
-                      <CrossIcon
-                        className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px]  "
-                        // onClick={cancle}
-                      />
-                      <CrossSmallIcon
-                        className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px] lg:hidden block"
-                        // onClick={cancle}
-                      />
-                    </div>
-                    <div className="lg:hidden block">
-                      <ReactStars
-                        key={starsKey}
-                        count={4}
-                        onChange={ratingChanged}
-                        size={43}
-                        activeColor={"#52AA5E"}
-                        value={state.rating}
-                      />
-                    </div>
-                    <div className="hidden lg:block">
-                      <ReactStars
-                        key={starsKey}
-                        count={4}
-                        onChange={ratingChanged}
-                        size={65}
-                        activeColor={"#52AA5E"}
-                        value={state.rating}
-                        fullIcon={<i className="fa fa-star  bg-red-500"></i>}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-end text-right mt-12">
-                    <p className="text-[#DB0000]">X = I Would Never Buy This</p>
-                    <p className="text-[#52AA5E]">4 Stars = Great Gift</p>
-                  </div>
+                <div className="flex flex-col justify-end text-right mt-6 lg:mt-12">
+                  <p className="text-[#DB0000]">X = I Would Never Buy This</p>
+                  <p className="text-[#52AA5E]">4 Stars = Great Gift</p>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      </LayoutForm>
+      </div>
+      {/* </LayoutForm> */}
     </div>
   );
 }
@@ -198,7 +201,7 @@ function CrossSmallIcon<K extends React.ElementType = typeof defaultElement>(
     <svg
       {...props}
       style={{
-        width: "65%",
+        width: "auto",
         height: "65%",
       }}
       width="67"
@@ -225,9 +228,9 @@ const ProductCard = ({ data }: ProductCardtype) => {
   const navigate = useNavigate();
 
   return (
-    <div className="prod-container border-primary border-2 rounded-[20px] md:min-h-[471px] pl-[24px] md:pl-[34px] pr-[24px] md:pr-[54px] pt-[39px] pb-[18px] lg:w-full relative">
+    <div className="prod-container border-primary border-2 rounded-[20px] h-[300px] md:h-[350px] lg:min-h-[450px] pl-[24px] md:pl-[34px] pr-[24px] md:pr-[54px] pt-[15px] md:pt-[20px] lg:pt-[39px] pb-[18px] md:w-[75%] mx-auto lg:w-full relative">
       <div className="">
-        <div className="flex justify-between mb-4">
+        <div className="flex justify-between mb-2  lg:mb-4">
           <p className="font-semibold text-[20px] leading-[23.48px] ">
             {data.productName}
           </p>
@@ -235,18 +238,18 @@ const ProductCard = ({ data }: ProductCardtype) => {
             ${data.price}
           </p>
         </div>
-        <p className="font-normal text-[16px] leading-[18.78px] mb-4">
+        <p className="font-normal text-[16px] leading-[18.78px] mb-2  lg:mb-4">
           {data.vendor}
         </p>
         <hr className="bg-primary h-0.5" />
       </div>
       {/* product iamge */}
-      <div className="mx-auto w-full flex justify-center my-[32px] md:my-[68px] relative">
+      <div className="mx-auto w-full flex justify-center my-4 md:my-4 lg:my-[32px] xl:my-[68px] relative">
         {/* <div className="relative h-[222px] w-[302px]"> */}
         <img
           src={data.images[1]}
           alt=""
-          className="h-[182px] w-[262px] md:h-[222px] md:w-[302px]"
+          className="h-[150px] w-[262px] md:h-[200px] md:w-[302px]"
         />
         {/* </div> */}
       </div>

@@ -283,25 +283,29 @@ export default function SavedProfile() {
                 className="w-[312px] h-[42px] bg-white text-primary text-center order-1 lg:order-0 mx-auto lg:mx-0"
                 onClick={() => {
                   saveProfile();
-                  if (formState.formState.isInitialOnboardingCompleted) {
-                    navigate("/market", { replace: false });
-                  } else {
-                    navigate("/rec", { replace: false });
-                  }
+                  navigate("/rec", { replace: false });
+
+                  // if (formState.formState.isInitialOnboardingCompleted) {
+                  //   navigate("/market", { replace: false });
+                  // } else {
+                  //   navigate("/rec", { replace: false });
+                  // }
                 }}
               >
                 See{" "}
-                {formState.formState.who ? formState.formState.who : "Mother"}’s
-                Gifts!
+                {formState.formState.who ? formState.formState.who : "Unknown"}
+                ’s Gifts!
               </button>
               <button
                 className="w-[312px] h-[42px] bg-white text-primary text-center order-0 lg:order-1 mx-auto lg:mx-0"
                 onClick={() => {
-                  if (formState.formState.isInitialOnboardingCompleted) {
-                    navigate("/market", { replace: false });
-                  } else {
-                    navigate("/rec", { replace: false });
-                  }
+                  navigate("/rec", { replace: false });
+
+                  // if (formState.formState.isInitialOnboardingCompleted) {
+                  //   navigate("/market", { replace: false });
+                  // } else {
+                  //   navigate("/rec", { replace: false });
+                  // }
                 }}
               >
                 Skip

@@ -23,6 +23,7 @@ interface IFormState {
   isProfileSaved: boolean;
   isInitialOnboardingCompleted: boolean;
   userEmail: string;
+  isEditing: boolean;
 }
 
 const appData: AppState = {
@@ -42,6 +43,7 @@ const appData: AppState = {
     isProfileSaved: false,
     isInitialOnboardingCompleted: false,
     userEmail: "",
+    isEditing: false,
   },
   collections: [],
 };
