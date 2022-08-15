@@ -114,26 +114,20 @@ export default function Recommendations() {
               <div className="w-full sm:w-[75%] md:w-full  mx-auto lg:col-start-1 lg:col-end-7 xl:col-start-1 xl:col-end-7 h-[50%] lg:h-auto">
                 <ProductCard data={products[revIndex]} />
               </div>
-              <div className="lg:col-start-7 lg:col-end-13 xl:col-start-7 xl:col-end-13 mt-8 lg:mt-0 xl:mr-[123px] h-[50%]">
+              <div className="lg:col-start-7 lg:col-end-13 xl:col-start-7 xl:col-end-13 mt-8 lg:mt-0 xl:mr-[123px] h-[50%] ">
                 <p className="font-semibold text-[20px] text-center lg:text-left  lg:text-[28px] leading-[26px] lg:leading-[32.87px] w-full lg:w-[448px]">
                   Please rate how this gift matches your{" "}
                   {appState.formState.who ? appState.formState.who : "Unknown"}
                 </p>
-                <div className="flex mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start">
+                {/* small screens */}
+                <div className="grid grid-cols-5 mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start w-[90%] xxs:w-[85%] xs:w-[80%] sm:w-[65%] md:w-[50%] lg:hidden mx-auto ">
                   <div
-                    // className="h-[32px] w-[32px] lg:h-[64px] md:w-[64px] "
                     onClick={cancle}
+                    className="col-start-1 col-end-2 flex items-center"
                   >
-                    <CrossIcon
-                      className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px]  "
-                      // onClick={cancle}
-                    />
-                    <CrossSmallIcon
-                      className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px] lg:hidden block"
-                      // onClick={cancle}
-                    />
+                    <CrossSmallIcon className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px] mlg:hidden block" />
                   </div>
-                  <div className="lg:hidden block ml-[10px]">
+                  <div className="lg:hidden block  col-start-2 col-end-6">
                     <ReactStars
                       key={starsKey}
                       count={4}
@@ -141,9 +135,21 @@ export default function Recommendations() {
                       size={43}
                       activeColor={"#52AA5E"}
                       value={state.rating}
+                      style={{
+                        display: "grid",
+                        gridTemplateColumn: "repeat(4, 1fr)",
+                        backgroundColor: "red",
+                      }}
                     />
                   </div>
-                  <div className="hidden lg:block ml-[20px]">
+                </div>
+                {/* large screen */}
+                <div className="lg:grid lg:grid-cols-5 mt-4 lg:mt-16 items-center xl:items-center justify-center lg:justify-start lg:w-[448px] hidden">
+                  <div onClick={cancle} className="col-start-1 col-end-2">
+                    <CrossIcon className="h-[32px] w-[32px] lg:h-[64px] lg:w-[64px]  " />
+                  </div>
+                  {/* <div className="lg:hidden block ml-[10px]"></div> */}
+                  <div className="hidden lg:block col-start-2 col-end-6">
                     <ReactStars
                       key={starsKey}
                       count={4}
@@ -155,7 +161,7 @@ export default function Recommendations() {
                     />
                   </div>
                 </div>
-                <div className="flex flex-col justify-end text-right mt-6 lg:mt-12">
+                <div className="flex flex-col justify-end text-right mt-6 lg:mt-12 lg:w-[448px]">
                   <p className="text-[#DB0000]">X = I Would Never Buy This</p>
                   <p className="text-[#52AA5E]">4 Stars = Great Gift</p>
                 </div>
@@ -177,9 +183,9 @@ function CrossIcon<K extends React.ElementType = typeof defaultElement>(
   return (
     <svg
       {...props}
-      width="67"
-      height="67"
-      viewBox="0 0 67 67"
+      width="65"
+      height="65"
+      viewBox="0 0 65 65"
       className="text-red-500 hover:fill-current hover:text-red-500 focus:text-red-500 hidden lg:block"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -200,14 +206,14 @@ function CrossSmallIcon<K extends React.ElementType = typeof defaultElement>(
   return (
     <svg
       {...props}
-      style={{
-        width: "auto",
-        height: "65%",
-      }}
-      width="67"
-      height="67"
-      viewBox="0 0 67 67"
-      className="text-red-500 hover:fill-current hover:text-red-500 focus:text-red-500 lg:hidden"
+      // style={{
+      //   width: "55%",
+      //   height: "55%",
+      // }}
+      width="43"
+      height="64"
+      viewBox="0 0 64 43"
+      className="text-red-500 hover:fill-current hover:text-red-500 focus:text-red-500 lg:hidden flex items-center -mt-4"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

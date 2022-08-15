@@ -17,14 +17,14 @@ export default function ProductCard({
   const navigate = useNavigate();
   return (
     <div
-      className="w-[250px] xs:w-[212px] md:min-w-[200px] xl:min-w-[270px] shadow-md align-middle mx-auto hover:cursor-pointer my-2"
+      className="w-[250px] xs:w-[212px] md:w-full lg:w-full xl:w-full shadow-md align-middle mx-auto lg:mx-0 hover:cursor-pointer my-2"
       onClick={() => navigate(`/product/${data.id}`, { replace: false })}
     >
-      <div className="img-container relative w-[250px] xs:w-[212px] md:min-w-[200px] xl:min-w-[270px]">
+      <div className="img-container relative w-[250px] xs:w-[212px] md:w-full lg:w-full xl:w-full">
         <img
           src={RecImage}
           alt=""
-          className="w-[250px] xs:w-[212px] xs:h-[212px] md:min-w-[200px] xl:min-w-[270px]"
+          className="w-[250px] xs:w-[212px] xs:h-[212px] md:w-full lg:w-full xl:w-full"
         />
         {collected ? (
           <div

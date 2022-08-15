@@ -98,11 +98,11 @@ export default function Product() {
               </div>
             </div>
             <div className="flex w-full justify-center md:justify-start mt-4  lg:mt-0">
-              <div className="flex gap-6 items-center ">
+              <div className="flex gap-6 items-center w-full px-2 lg:px-0 ">
                 {appState.collections &&
                 appState.collections.find((item) => item?.id == id) ? (
                   <div
-                    className="rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-primary fill-white hover:bg-white  hover:fill-black "
+                    className="rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-primary fill-white hover:bg-white  hover:fill-black  "
                     onClick={toggleCollection}
                   >
                     <HeartFilledIcon />
@@ -116,7 +116,7 @@ export default function Product() {
                   </div>
                 )}
                 <a
-                  className="bg-primary leading-[16.44px] text-[14px] text-white font-medium px-[14.5px] py-[13px] uppercase"
+                  className="bg-primary leading-[16.44px] text-[14px] text-white font-medium px-[14.5px] py-[13px] uppercase w-full text-center"
                   href={product?.vendorUrl}
                   target="_blank"
                   rel="noreferrer"

@@ -16,7 +16,7 @@ const ProductImageCarousel = ({
   const settings = {
     customPaging: function (i: any) {
       return (
-        <a className="h-[100px] w-[100px] mx-auto">
+        <a className="h-[100px] w-[100px]">
           <img
             className="h-[100px] w-[100px]"
             alt="mini product"
