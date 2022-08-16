@@ -24,7 +24,7 @@ export default function ProductCard({
         <img
           src={RecImage}
           alt=""
-          className="w-[250px] xs:w-[212px] xs:h-[212px] md:w-full lg:w-full xl:w-full"
+          className="w-[250px] xs:w-[212px] xs:h-[200px] md:w-full lg:w-full xl:w-full"
         />
         {collected ? (
           <div

@@ -102,14 +102,14 @@ export default function Product() {
                 {appState.collections &&
                 appState.collections.find((item) => item?.id == id) ? (
                   <div
-                    className="rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-primary fill-white hover:bg-white  hover:fill-black  "
+                    className="rounded-full h-14 w-16 border-2 border-primary flex items-center justify-center bg-primary fill-white hover:bg-white  hover:fill-black  "
                     onClick={toggleCollection}
                   >
                     <HeartFilledIcon />
                   </div>
                 ) : (
                   <div
-                    className="rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-white hover:bg-primary fill-black hover:fill-white"
+                    className="rounded-full h-14 w-16 border-2 border-primary flex items-center justify-center bg-white hover:bg-primary fill-black hover:fill-white"
                     onClick={toggleCollection}
                   >
                     <HeartFilledWhiteIcon />

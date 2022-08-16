@@ -58,7 +58,7 @@ export default function FormNav() {
     {
       name: "Interests",
       step: "/keyword",
-      disabled: state?.formState.isInitialOnboardingCompleted
+      disabled: state?.formState.isEditing
         ? false
         : location.pathname === "/keyword" ||
           location.pathname === "/occasion" ||
@@ -69,7 +69,7 @@ export default function FormNav() {
     {
       name: state?.formState.occasion ? state?.formState.occasion : "Occasion",
       step: "/occasion",
-      disabled: state?.formState.isInitialOnboardingCompleted
+      disabled: state?.formState.isEditing
         ? false
         : location.pathname === "/occasion" || location.pathname === "/price"
         ? false
@@ -78,7 +78,7 @@ export default function FormNav() {
     {
       name: "Price",
       step: "/price",
-      disabled: state?.formState.isInitialOnboardingCompleted
+      disabled: state?.formState.isEditing
         ? false
         : location.pathname === "/price"
         ? false

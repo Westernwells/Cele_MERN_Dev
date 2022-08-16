@@ -193,7 +193,7 @@ export default function Marketplace() {
             </div>
           </div> */}
           <div className="sm:ml-[27px] lg:ml-[34px] xl:ml-[54px] bg-white  pt-[26px]  mt-[43px] w-full border-t-2 border-l-2 border-t-primary border-l-primary pb-12  ">
-            <div className="w-full flex justify-between xs:mx-0   mb-[10px]   pl-[24px] md:pl-[50px] lg:pl-[100px] xl:pl-[150px] pr-[24px] md:pr-[50px] lg:pr-[125px] xl:pr-[200px] ">
+            <div className="w-full flex justify-between xs:mx-0   mb-[10px]   pl-[24px] md:pl-[50px] lg:pl-[50px] xl:pl-[70px] pr-[24px] md:pr-[50px] lg:pr-[114px] xl:pr-[150px] ">
               <div className="flex items-left w-full ">
                 <MarketPlaceEditDropDown editAction={editAction} />
               </div>
@@ -202,7 +202,7 @@ export default function Marketplace() {
                 <p className="">Stash It</p>
               </div>
             </div>
-            {/* <div className="w-full flex justify-between  mb-[10px]   pl-[24px] lg:pl-[54px] xl:pl-[200px] pr-[24px] lg:pr-[54px] xl:pr-[200px]">
+            {/* <div className="w-full flex justify-between  mb-[10px]   pl-[24px] lg:pl-[54px] xl:pl-[200px] pr-[24px] lg:pr-[54px] xl:pr-[150px]">
               <div className="flex gap-2 items-center w-full ml-6 lg:ml-4 xl:ml-10">
                 <MarketPlaceEditDropDown editAction={editAction} />
               </div>
@@ -211,7 +211,7 @@ export default function Marketplace() {
                 <p className="">Stash It</p>
               </div>
             </div> */}
-            <div className=" mx-auto xs:mx-0 xs:grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  mb-[45px]  gap-4 lg:gap-8 xl:gap-16 justify-between  pl-[24px] md:pr-[50px] md:pl-[50px] lg:pl-[100px] xl:pl-[150px] pr-[24px] lg:pr-[125px] xl:pr-[200px] ">
+            <div className=" mx-auto xs:mx-0 xs:grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  mb-[45px]  gap-4 lg:gap-5 xl:gap-8 justify-between  pl-[24px] md:pr-[50px] md:pl-[50px] lg:pl-[50px] xl:pl-[70px] pr-[24px] lg:pr-[114px] xl:pr-[150px] ">
               {products &&
                 products.map((item, index) => (
                   <ProductCard
