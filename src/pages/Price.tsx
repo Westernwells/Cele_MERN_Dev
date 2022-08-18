@@ -34,7 +34,15 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
     //   navigate("/profile", { replace: false });
     // }
   };
-
+  const setRangeInputValues = (input: [number, number]) => {
+    setState({
+      ...state,
+      formState: {
+        ...state.formState,
+        range: input,
+      },
+    });
+  };
   return (
     <div>
       <LayoutForm withFormNav>
@@ -139,9 +147,12 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                       </p>
                       <input
                         onChange={(e) => {
-                          setValues([Number(e.target.value), values[1]]);
+                          setRangeInputValues([
+                            Number(e.target.value),
+                            values[1],
+                          ]);
                         }}
-                        value={values[0].toFixed(0)}
+                        value={state.formState.range[0].toFixed(0)}
                         placeholder={"5"}
                         className="w-16 h-6 border-primary border-2 px-1 py-4 text-lg text-center focus:ring-primary focus:outline-primary ml-2"
                       />
@@ -155,9 +166,12 @@ const Price: React.FC<{ rtl: boolean }> = ({ rtl }) => {
                       </p>
                       <input
                         onChange={(e) => {
-                          setValues([values[0], Number(e.target.value)]);
+                          setRangeInputValues([
+                            values[0],
+                            Number(e.target.value),
+                          ]);
                         }}
-                        value={values[1].toFixed(0)}
+                        value={state.formState.range[1].toFixed(0)}
                         placeholder={"1000"}
                         className="w-16 h-6 border-primary border-2 px-1 py-4 text-lg text-center focus:ring-primary focus:outline-primary ml-2"
                       />
