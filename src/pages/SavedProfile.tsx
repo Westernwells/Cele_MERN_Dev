@@ -215,7 +215,9 @@ export default function SavedProfile() {
               <div className="lg:col-start-6 lg:col-end-13 lg:mr-[123px] mt-16 lg:mt-0">
                 <p className="mb-[34px] lg:mb-[68px] font-semibold text-[20px] leading-[23.48px] text-white w-full  lg:w-[327px] lg:ml-[50px]">
                   Are there any other occasions when you buy your{" "}
-                  {formState.formState.who ? formState.formState.who : "Mother"}{" "}
+                  {formState.formState.who
+                    ? formState.formState.who
+                    : "Unknown"}{" "}
                   a gift?
                 </p>
                 <div className="w-full mt-3 flex items-end gap-2">
